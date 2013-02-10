@@ -5,6 +5,32 @@ services:
     tijsverkoyen.css_to_inline:
         class: TijsVerkoyen\CssToInlineStyles\CssToInlineStyles
 
+    buzz.request:
+        class: Buzz\Message\Request
+
+    buzz.response:
+        class: Buzz\Message\Response
+
+    buzz.client:
+        class: Buzz\Client\FileGetContents
+
+    knp.snappy.pdf:
+        class: Knp\Snappy\Pdf
+        arguments: [ '/usr/local/bin/wkhtmltopdf' ]
+
+    siphoc.request_handler:
+        class: Siphoc\PdfBundle\Util\RequestHandler
+        arguments: [ @buzz.request, @buzz.response, @buzz.client ]
+
     siphoc.pdf.css_to_inline:
         class: Siphoc\PdfBundle\Util\CssToInline
-        arguments: [ @tijsverkoyen.css_to_inline ]
+        arguments: [ @tijsverkoyen.css_to_inline, @siphoc.request_handler ]
+
+    siphoc.pdf.js_to_html:
+        class: Siphoc\PdfBundle\Util\JSToHTML
+        arguments: [ @siphoc.request_handler ]
+
+    siphoc.pdf.generator:
+        class: Siphoc\PdfBundle\Util\PdfGenerator
+        arguments: [ @siphoc.pdf.css_to_inline, @siphoc.pdf.js_to_html, @siphoc.request_handler ]
+
