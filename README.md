@@ -1,6 +1,8 @@
 # PDFBundle
 The Siphoc PDF Bundle provides an easy way to create PDF's from your views.
 
+[![Build Status](https://travis-ci.org/jelmersnoeck/PdfBundle.png?branch=master)](https://travis-ci.org/jelmersnoeck/PdfBundle)
+
 ## CSS To Inline
 In this bundle there's also a CSS To Inline utility class included. It is based
 upon the [CssToInlineStyles](https://github.com/tijsverkoyen/CssToInlineStyles) class from [@tijsverkoyen](https://github.com/tijsverkoyen).
