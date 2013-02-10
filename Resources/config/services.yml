@@ -18,19 +18,19 @@ services:
         class: Knp\Snappy\Pdf
         arguments: [ '/usr/local/bin/wkhtmltopdf' ]
 
-    siphoc.request_handler:
-        class: Siphoc\PdfBundle\Util\RequestHandler
+    siphoc.buzz_request_handler:
+        class: Siphoc\PdfBundle\Util\BuzzRequestHandler
         arguments: [ @buzz.request, @buzz.response, @buzz.client ]
 
     siphoc.pdf.css_to_inline:
         class: Siphoc\PdfBundle\Util\CssToInline
-        arguments: [ @tijsverkoyen.css_to_inline, @siphoc.request_handler ]
+        arguments: [ @tijsverkoyen.css_to_inline, @siphoc.buzz_request_handler ]
 
     siphoc.pdf.js_to_html:
         class: Siphoc\PdfBundle\Util\JSToHTML
-        arguments: [ @siphoc.request_handler ]
+        arguments: [ @siphoc.buzz_request_handler ]
 
     siphoc.pdf.generator:
         class: Siphoc\PdfBundle\Util\PdfGenerator
-        arguments: [ @siphoc.pdf.css_to_inline, @siphoc.pdf.js_to_html, @siphoc.request_handler ]
+        arguments: [ @siphoc.pdf.css_to_inline, @siphoc.pdf.js_to_html, @knp.snappy.pdf ]
 
