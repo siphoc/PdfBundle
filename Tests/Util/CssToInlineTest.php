@@ -10,10 +10,12 @@ class CssToInlineTest extends \PHPUnit_Framework_TestCase
     public function test_constructor_with_basic_data()
     {
         $inline = new CssToInlineStyles;
-        $converter = new CssToInline($inline);
+        $requestHandler = $this->getRequestHandlerMock();
+        $converter = new CssToInline($inline, $requestHandler);
         $this->assertSame($inline, $converter->getConverter());
         $this->assertNull($converter->getBasePath());
         $this->assertFalse($converter->useExternalStylesheets());
+        $this->assertSame($requestHandler, $converter->getRequestHandler());
     }
 
     public function test_it_stores_web_path()
@@ -90,7 +92,7 @@ class CssToInlineTest extends \PHPUnit_Framework_TestCase
         $converter = $this->getConverter();
         $converter->enableExternalStylesheets();
 
-        $htmlFile = $this->getFixturesPath() . '/raw_data.html';
+        $htmlFile = $this->getFixturesPath() . '/stylesheet_test.html';
         $htmlData = file_get_contents($htmlFile);
         $convertedData = file_get_contents(
             $this->getFixturesPath() . '/converted_css_data.html'
@@ -110,9 +112,27 @@ class CssToInlineTest extends \PHPUnit_Framework_TestCase
     private function getConverter()
     {
         $inline = new CssToInlineStyles;
-        $converter = new CssToInline($inline);
+        $converter = new CssToInline($inline, $this->getRequestHandlerMock());
         $converter->setBasePath($this->getFixturesPath());
 
         return $converter;
+    }
+
+    private function getRequestHandlerMock()
+    {
+        $request =  $this->getMock('Buzz\Message\Request');
+        $response =  $this->getMock('Buzz\Message\Response');
+        $client =  $this->getMock('\Buzz\Client\FileGetContents');
+
+        $handler = $this->getMock(
+            'Siphoc\PdfBundle\Util\BuzzRequestHandler',
+            array('getContent'), array($request, $response, $client)
+        );
+
+        $handler->expects($this->any())
+            ->method('getContent')
+            ->will($this->returnValue("h2{ font-size: 15px; }"));
+
+        return $handler;
     }
 }

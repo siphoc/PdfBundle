@@ -9,6 +9,7 @@
 
 namespace Siphoc\PdfBundle\Util;
 
+use Siphoc\PdfBundle\Util\RequestHandlerInterface;
 use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 /**
@@ -19,18 +20,18 @@ use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 class CssToInline
 {
     /**
-     * The converter used for the inline replacement.
-     *
-     * @var CssToInlineStyles
-     */
-    protected $converter;
-
-    /**
      * The basepath for our css files. This is basically the /web folder.
      *
      * @var string
      */
     protected $basePath;
+
+    /**
+     * The converter used for the inline replacement.
+     *
+     * @var CssToInlineStyles
+     */
+    protected $converter;
 
     /**
      * Follow external stylesheet files or not?
@@ -40,13 +41,22 @@ class CssToInline
     protected $externalStylesheets = false;
 
     /**
+     * The request handler we'll be using to call external domains.
+     *
+     * @var RequestHandlerInterface
+     */
+    protected $requestHandler;
+
+    /**
      * Initiate the CssToInline converter for Symfony2.
      *
      * @param CssToInlineStyles $converter
      */
-    public function __construct(CssToInlineStyles $converter)
+    public function __construct(CssToInlineStyles $converter,
+        RequestHandlerInterface $requestHandler)
     {
         $this->converter = $converter;
+        $this->requestHandler = $requestHandler;
     }
 
     /**
@@ -166,13 +176,23 @@ class CssToInline
 
         foreach ($stylesheets as $stylesheet) {
             if ($this->isExternalStylesheet($stylesheet)) {
-                // code...
+                $cssData .= $this->getRequestHandler()->getContent($stylesheet);
             } else {
                 $cssData .= file_get_contents($stylesheet);
             }
         }
 
         return $cssData;
+    }
+
+    /**
+     * Retrieve the request handler.
+     *
+     * @return RequestHandlerInterface
+     */
+    public function getRequestHandler()
+    {
+        return $this->requestHandler;
     }
 
     /**
