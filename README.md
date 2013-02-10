@@ -26,3 +26,6 @@ upon the [CssToInlineStyles](https://github.com/tijsverkoyen/CssToInlineStyles) 
 
 ### Buzz
 For external calls, I've included the [Buzz](https://github.com/kriswallsmith/Buzz) Bundle from [@kriswallsmith](https://github.com/kriswallsmith).
+
+### Snappy
+To create the actual PDF. We're using [Snappy](https://github.com/knplabs/snappy). This has the [wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/) dependency.
