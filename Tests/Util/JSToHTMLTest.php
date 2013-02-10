@@ -42,6 +42,22 @@ class JSToHTMLTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function test_it_converts_files()
+    {
+        $converter = $this->getConverter();
+        $htmlData = file_get_contents(
+            $this->getFixturesPath() . '/raw_data.html'
+        );
+        $convertedData = file_get_contents(
+            $this->getFixturesPath() . '/converted_js_data.html'
+        );
+
+        $this->assertEquals(
+            $convertedData,
+            $converter->convertToString($htmlData)
+        );
+    }
+
     private function getFixturesPath()
     {
         return __DIR__ . '/../Fixtures';

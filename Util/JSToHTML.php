@@ -25,6 +25,20 @@ class JSToHTML
     protected $basePath;
 
     /**
+     * Extract all the linked JS files and put them in the proper place on the
+     * given HTML string.
+     *
+     * @param string $html
+     * @return string
+     */
+    public function convertToString($html)
+    {
+        $externalJavaScript = $this->extractExternalJavaScript($html);
+
+        return $this->replaceJavaScriptTags($html, $externalJavaScript);
+    }
+
+    /**
      * Given a HTML string, find all the JS files that should be loaded.
      *
      * @param string $html
@@ -103,6 +117,25 @@ class JSToHTML
     }
 
     /**
+     * Fetch the content of a JavaScript file from a given path.
+     *
+     * @TODO: implement external calls.
+     *
+     * @param string $path
+     * @return string
+     */
+    private function getJavaScriptContent($path)
+    {
+        if ($this->isExternalJavaScriptFile($path)) {
+            $fileData = '';
+        } else {
+            $fileData = file_get_contents($path);
+        }
+
+        return "<script type=\"text/javascript\">\n" . $fileData . "</script>";
+    }
+
+    /**
      * Check if the given string is a string for a local JavaScript file or an
      * external JavaScript.
      *
@@ -118,5 +151,28 @@ class JSToHTML
         }
 
         return false;
+    }
+
+    /**
+     * Replace the JavaScript tags that do external requests with inline
+     * script blocks.
+     *
+     * @TODO: Implement external call action.
+     *
+     * @param string $html
+     * @param array $javaScriptFiles
+     * @return string
+     */
+    private function replaceJavaScriptTags($html, array $javaScriptFiles)
+    {
+        foreach ($javaScriptFiles['links'] as $key => $file) {
+            $html = str_replace(
+                $javaScriptFiles['tags'][$key],
+                $this->getJavaScriptContent($file),
+                $html
+            );
+        }
+
+        return $html;
     }
 }
