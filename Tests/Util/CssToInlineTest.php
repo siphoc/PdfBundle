@@ -76,7 +76,7 @@ class CssToInlineTest extends \PHPUnit_Framework_TestCase
         $htmlFile = $this->getFixturesPath() . '/raw_data.html';
         $htmlData = file_get_contents($htmlFile);
         $strippedTags = file_get_contents(
-            $this->getFixturesPath() . '/stripped_tags.html'
+            $this->getFixturesPath() . '/stripped_css_tags.html'
         );
 
         $this->assertEquals(
@@ -93,7 +93,7 @@ class CssToInlineTest extends \PHPUnit_Framework_TestCase
         $htmlFile = $this->getFixturesPath() . '/raw_data.html';
         $htmlData = file_get_contents($htmlFile);
         $convertedData = file_get_contents(
-            $this->getFixturesPath() . '/converted_data.html'
+            $this->getFixturesPath() . '/converted_css_data.html'
         );
 
         $this->assertEquals(
