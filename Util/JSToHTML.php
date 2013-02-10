@@ -148,15 +148,13 @@ class JSToHTML
     /**
      * Fetch the content of a JavaScript file from a given path.
      *
-     * @TODO: implement external calls.
-     *
      * @param string $path
      * @return string
      */
     private function getJavaScriptContent($path)
     {
         if ($this->isExternalJavaScriptFile($path)) {
-            $fileData = '';
+            $fileData = $this->getRequestHandler()->getContent($path);
         } else {
             $fileData = file_get_contents($path);
         }

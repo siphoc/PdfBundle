@@ -51,7 +51,7 @@ class JSToHTMLTest extends \PHPUnit_Framework_TestCase
     {
         $converter = $this->getConverter();
         $htmlData = file_get_contents(
-            $this->getFixturesPath() . '/raw_data.html'
+            $this->getFixturesPath() . '/javascript_test.html'
         );
         $convertedData = file_get_contents(
             $this->getFixturesPath() . '/converted_js_data.html'
@@ -84,12 +84,12 @@ class JSToHTMLTest extends \PHPUnit_Framework_TestCase
 
         $handler = $this->getMock(
             'Siphoc\PdfBundle\Util\RequestHandler',
-            array('send'), array($request, $response, $client)
+            array('getContent'), array($request, $response, $client)
         );
 
         $handler->expects($this->any())
             ->method('getContent')
-            ->will($this->returnValue('HandlerGetContent'));
+            ->will($this->returnValue("$('jquery');\n"));
 
         return $handler;
     }
