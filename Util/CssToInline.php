@@ -50,6 +50,21 @@ class CssToInline
     }
 
     /**
+     * Convert a specified HTML string with CSS data to a HTML string with
+     * inline CSS data.
+     *
+     * @param string $html
+     * @return string
+     */
+    public function convertToString($html)
+    {
+        $this->setConvertionOptions($html);
+        $convertedHtml = $this->converter->convert();
+
+        return $convertedHtml;
+    }
+
+    /**
      * Disable the usage of the <link stylesheets> tag in our HTML.
      *
      * @return CssToInline
@@ -78,8 +93,6 @@ class CssToInline
      * enabled. If the stylesheet is not in the form of a url, prepend our
      * basePath.
      *
-     * @TODO: Improve regex to contain a wider range of valid link syntaxes.
-     *
      * @param string $html
      * @return array
      */
@@ -88,7 +101,7 @@ class CssToInline
         $matches = array();
 
         preg_match_all(
-            '/<link rel="stylesheet" href="(?P<links>.*)">/',
+            '/' . $this->getExternalStylesheetRegex() . '/',
             $html, $matches
         );
 
@@ -119,24 +132,6 @@ class CssToInline
     }
 
     /**
-     * Check if the given string is a string for a local stylesheet or an
-     * external stylesheet.
-     *
-     * @TODO: Improve regex to contain bigger range of urls.
-     *
-     * @param string $url
-     * @return boolean
-     */
-    private function isExternalStylesheet($url)
-    {
-        if (1 === preg_match('/(http|https):\/\//', $url)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Retrieve the BasePath used for this inline action.
      *
      * @return string
@@ -157,6 +152,48 @@ class CssToInline
     }
 
     /**
+     * From a set of external stylesheets, retrieve the data and concatenate it
+     * to one proper stylesheet string.
+     *
+     * @TODO: Implement fetching from other servers.
+     *
+     * @param array $stylesheets
+     * @return string
+     */
+    public function getExternalCss(array $stylesheets)
+    {
+        $cssData = '';
+
+        foreach ($stylesheets as $stylesheet) {
+            if ($this->isExternalStylesheet($stylesheet)) {
+                // code...
+            } else {
+                $cssData .= file_get_contents($stylesheet);
+            }
+        }
+
+        return $cssData;
+    }
+
+    /**
+     * Check if the given string is a string for a local stylesheet or an
+     * external stylesheet.
+     *
+     * @TODO: Improve regex to contain bigger range of urls.
+     *
+     * @param string $url
+     * @return boolean
+     */
+    private function isExternalStylesheet($url)
+    {
+        if (1 === preg_match('/(http|https):\/\//', $url)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Set the base path we'll use to fetch our css files from.
      *
      * @param string $basePath      The base path where our css files are.
@@ -170,6 +207,22 @@ class CssToInline
     }
 
     /**
+     * Strip the external stylesheet tags from a specified HTML string.
+     *
+     * @param string $html
+     * @return string
+     */
+    public function stripExternalStylesheetTags($html)
+    {
+        $html = preg_replace(
+            '/' . $this->getExternalStylesheetRegex() . '\n/',
+            '', $html
+        );
+
+        return $html;
+    }
+
+    /**
      * Are we allowed to follow <link stylesheet> tags to include these
      * stylesheets in our page?
      *
@@ -178,5 +231,37 @@ class CssToInline
     public function useExternalStylesheets()
     {
         return $this->externalStylesheets;
+    }
+
+    /**
+     * Set allt he options wanted to convert our HTML page into an inline CSS
+     * page.
+     *
+     * @param string $html
+     */
+    private function setConvertionOptions($html)
+    {
+        if ($this->useExternalStylesheets()) {
+            $externalStylesheets = $this->extractExternalStylesheets($html);
+            $html = $this->stripExternalStylesheetTags($html);
+
+            $externalCss = $this->getExternalCss($externalStylesheets);
+            $this->converter->setCss($externalCss);
+        }
+
+        $this->converter->setUseInlineStylesBlock(true);
+        $this->converter->setHtml($html);
+    }
+
+    /**
+     * The regex that we'll use to extract external stylesheets.
+     *
+     * @TODO: Improve regex to contain a wider range of valid link syntaxes.
+     *
+     * @return string
+     */
+    private function getExternalStylesheetRegex()
+    {
+        return '<link rel="stylesheet" href="(?P<links>.*)">';
     }
 }

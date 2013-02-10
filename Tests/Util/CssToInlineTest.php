@@ -54,6 +54,54 @@ class CssToInlineTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function test_it_concatenates_all_external_stylesheets()
+    {
+        $converter = $this->getConverter();
+        $htmlFile = $this->getFixturesPath() . '/raw_data.html';
+        $htmlData = file_get_contents($htmlFile);
+        $externalStylesheets = $converter
+            ->extractExternalStylesheets($htmlData);
+
+        $cssData = $converter->getExternalCss($externalStylesheets);
+        $rawData = file_get_contents(
+            $this->getFixturesPath() . '/css/3809e64.css'
+        );
+
+        $this->assertEquals($rawData, $cssData);
+    }
+
+    public function test_it_strips_external_stylesheet_tags()
+    {
+        $converter = $this->getConverter();
+        $htmlFile = $this->getFixturesPath() . '/raw_data.html';
+        $htmlData = file_get_contents($htmlFile);
+        $strippedTags = file_get_contents(
+            $this->getFixturesPath() . '/stripped_tags.html'
+        );
+
+        $this->assertEquals(
+            $strippedTags,
+            $converter->stripExternalStylesheetTags($htmlData)
+        );
+    }
+
+    public function test_it_inlines_external_stylesheets()
+    {
+        $converter = $this->getConverter();
+        $converter->enableExternalStylesheets();
+
+        $htmlFile = $this->getFixturesPath() . '/raw_data.html';
+        $htmlData = file_get_contents($htmlFile);
+        $convertedData = file_get_contents(
+            $this->getFixturesPath() . '/converted_data.html'
+        );
+
+        $this->assertEquals(
+            $convertedData,
+            $converter->convertToString($htmlData)
+        );
+    }
+
     private function getFixturesPath()
     {
         return __DIR__ . '/../Fixtures';
