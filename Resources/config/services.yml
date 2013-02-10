@@ -1,0 +1,10 @@
+parameters:
+#    siphoc_pdf.example.class: Siphoc\PdfBundle\Example
+
+services:
+    tijsverkoyen.css_to_inline:
+        class: TijsVerkoyen\CssToInlineStyles\CssToInlineStyles
+
+    siphoc.pdf.css_to_inline:
+        class: Siphoc\PdfBundle\Util\CssToInline
+        arguments: [ @tijsverkoyen.css_to_inline ]
