@@ -36,7 +36,7 @@ class JSToHTML
     /**
      * Initiate the JSToHTML class with the request handler interface.
      *
-     * @param RequestHandler $handler
+     * @param RequestHandlerInterface $handler
      */
     public function __construct(RequestHandlerInterface $handler)
     {
@@ -90,7 +90,7 @@ class JSToHTML
     /**
      * Retrieve the Request Handler used for external calls.
      *
-     * @return RequestHandler
+     * @return RequestHandlerInterface
      */
     public function getRequestHandler()
     {

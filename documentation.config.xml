@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>Siphoc PDF Bundle</title>
+    <parser>
+        <target>Resources/html-doc</target>
+    </parser>
+    <transformer>
+        <target>Resources/html-doc</target>
+    </transformer>
+    <files>
+        <directory>.</directory>
+        <ignore>Tests/*</ignore>
+        <ignore>Resources/*</ignore>
+        <ignore>DependencyInjection/*</ignore>
+        <ignore>vendor/*</ignore>
+        <ignore>SiphocPdfBundle.php</ignore>
+    </files>
+</phpdoc>

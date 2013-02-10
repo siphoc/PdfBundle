@@ -51,6 +51,7 @@ class CssToInline
      * Initiate the CssToInline converter for Symfony2.
      *
      * @param CssToInlineStyles $converter
+     * @param RequestHandlerInterface $requestHandler
      */
     public function __construct(CssToInlineStyles $converter,
         RequestHandlerInterface $requestHandler)
