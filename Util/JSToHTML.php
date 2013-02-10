@@ -9,6 +9,8 @@
 
 namespace Siphoc\PdfBundle\Util;
 
+use Siphoc\PdfBundle\Util\RequestHandler;
+
 /**
  * Given a HTML page, take the external JS files and put it in the HTML with
  * <script> tags.
@@ -23,6 +25,23 @@ class JSToHTML
      * @var string
      */
     protected $basePath;
+
+    /**
+     * The request handler used for external calls.
+     *
+     * @var RequestHandler
+     */
+    protected $requestHandler;
+
+    /**
+     * Initiate the JSToHTML class with the request handler interface.
+     *
+     * @param RequestHandler $handler
+     */
+    public function __construct(RequestHandler $handler)
+    {
+        $this->requestHandler = $handler;
+    }
 
     /**
      * Extract all the linked JS files and put them in the proper place on the
@@ -66,6 +85,16 @@ class JSToHTML
     public function getBasePath()
     {
         return $this->basePath;
+    }
+
+    /**
+     * Retrieve the Request Handler used for external calls.
+     *
+     * @return RequestHandler
+     */
+    public function getRequestHandler()
+    {
+        return $this->requestHandler;
     }
 
     /**

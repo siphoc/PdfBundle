@@ -8,8 +8,13 @@ class JSToHTMLTest extends \PHPUnit_Framework_TestCase
 {
     public function test_constructor_with_basic_data()
     {
-        $converter = new JSToHTML;
+        $requestHandler = $this->getRequestHandlerMock();
+        $converter = new JSToHTML($requestHandler);
         $this->assertNull($converter->getBasePath());
+        $this->assertSame(
+            $requestHandler,
+            $converter->getRequestHandler()
+        );
     }
 
     public function test_it_stores_web_path()
@@ -65,9 +70,27 @@ class JSToHTMLTest extends \PHPUnit_Framework_TestCase
 
     private function getConverter()
     {
-        $converter = new JSToHTML;
+        $converter = new JSToHTML($this->getRequestHandlerMock());
         $converter->setBasePath($this->getFixturesPath());
 
         return $converter;
+    }
+
+    private function getRequestHandlerMock()
+    {
+        $request =  $this->getMock('Buzz\Message\Request');
+        $response =  $this->getMock('Buzz\Message\Response');
+        $client =  $this->getMock('\Buzz\Client\FileGetContents');
+
+        $handler = $this->getMock(
+            'Siphoc\PdfBundle\Util\RequestHandler',
+            array('send'), array($request, $response, $client)
+        );
+
+        $handler->expects($this->any())
+            ->method('getContent')
+            ->will($this->returnValue('HandlerGetContent'));
+
+        return $handler;
     }
 }
