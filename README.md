@@ -3,7 +3,7 @@ The Siphoc PDF Bundle provides an easy way to create PDF's from your views.
 
 ## CSS To Inline
 In this bundle there's also a CSS To Inline utility class included. It is based
-upon the CssToInlineStyles class from @tijsverkoyen.
+upon the [CssToInlineStyles](https://github.com/tijsverkoyen/CssToInlineStyles) class from [@tijsverkoyen](https://github.com/tijsverkoyen).
 
 ## Documentation
 The main Documentation can be found in Resources/doc/index.html. It is
