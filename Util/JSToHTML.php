@@ -9,7 +9,7 @@
 
 namespace Siphoc\PdfBundle\Util;
 
-use Siphoc\PdfBundle\Util\RequestHandler;
+use Siphoc\PdfBundle\Util\RequestHandlerInterface;
 
 /**
  * Given a HTML page, take the external JS files and put it in the HTML with
@@ -29,7 +29,7 @@ class JSToHTML
     /**
      * The request handler used for external calls.
      *
-     * @var RequestHandler
+     * @var RequestHandlerInterface
      */
     protected $requestHandler;
 
@@ -38,7 +38,7 @@ class JSToHTML
      *
      * @param RequestHandler $handler
      */
-    public function __construct(RequestHandler $handler)
+    public function __construct(RequestHandlerInterface $handler)
     {
         $this->requestHandler = $handler;
     }

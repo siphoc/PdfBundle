@@ -2,7 +2,7 @@
 
 namespace Siphoc\PdfBundle\Tests\Util;
 
-use Siphoc\PdfBundle\Util\RequestHandler;
+use Siphoc\PdfBundle\Util\BuzzRequestHandler;
 
 class RequestHandlerTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
         $response = $this->getResponseMock();
         $client = $this->getClientMock();
 
-        $handler = new RequestHandler($request, $response, $client);
+        $handler = new BuzzRequestHandler($request, $response, $client);
         $this->assertSame($request, $handler->getRequest());
         $this->assertSame($response, $handler->getResponse());
         $this->assertSame($client, $handler->getClient());
@@ -62,7 +62,7 @@ class RequestHandlerTest extends \PHPUnit_Framework_TestCase
 
     private function getRequestHandler()
     {
-        $handler = new RequestHandler(
+        $handler = new BuzzRequestHandler(
             $this->getRequestMock(),
             $this->getResponseMock(),
             $this->getClientMock()

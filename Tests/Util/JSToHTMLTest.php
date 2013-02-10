@@ -83,7 +83,7 @@ class JSToHTMLTest extends \PHPUnit_Framework_TestCase
         $client =  $this->getMock('\Buzz\Client\FileGetContents');
 
         $handler = $this->getMock(
-            'Siphoc\PdfBundle\Util\RequestHandler',
+            'Siphoc\PdfBundle\Util\BuzzRequestHandler',
             array('getContent'), array($request, $response, $client)
         );
 

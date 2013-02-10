@@ -11,13 +11,14 @@ namespace Siphoc\PdfBundle\Util;
 
 use Buzz\Client\ClientInterface;
 use Buzz\Message\MessageInterface;
+use Siphoc\PdfBundle\Util\RequestHandlerInterface;
 
 /**
  * The handler that we'll use to get external files from other servers.
  *
  * @author Jelmer Snoeck <jelmer@siphoc.com>
  */
-class RequestHandler
+class BuzzRequestHandler implements RequestHandlerInterface
 {
     /**
      * The request object we'll be using to do HTTP calls.
