@@ -50,19 +50,15 @@ In your config.yml file:
 In your controller, you can download the contents of your controller like this:
 
     $html = $this->renderView(
-        'DarwinApplicationBundle:Funnel:overview.html.twig', array(
-            'funnelParser' => $parser,
-            'view' => $type,
-            'evolutionDate' => $evolutionDate,
-            'availableChannels' => $availableChannels,
+        'AcmeDemoBundle:Demo:index.html.twig', array(
+            'name' => $name,
         )
     );
 
     $pdfGenerator = $this->get('siphoc.pdf.generator');
-    $output = $pdfGenerator->getOutputFromHtml($html);
 
     return new Response(
-        $output,
+        $pdfGenerator->getOutputFromHtml($html),
         200,
         array(
             'Content-Type'          => 'application/pdf',
