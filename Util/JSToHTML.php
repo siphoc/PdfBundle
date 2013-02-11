@@ -140,7 +140,7 @@ class JSToHTML
      */
     private function getExternalJavaScriptRegex()
     {
-        return '<script(.[^>]*)src="(?(?=.*js)(?P<links>.[^">\ ]*)|)"(.[^>]*)></script>';
+        return '<script(.*)src="(?(?=.*js)(?P<links>.[^">\ ]*)|)"(.*)></script>';
     }
 
     /**
@@ -192,11 +192,13 @@ class JSToHTML
     private function replaceJavaScriptTags($html, array $javaScriptFiles)
     {
         foreach ($javaScriptFiles['links'] as $key => $file) {
-            $html = str_replace(
-                $javaScriptFiles['tags'][$key],
-                $this->getJavaScriptContent($file),
-                $html
-            );
+            if (!$this->isExternalJavaScriptFile($file)) {
+                $html = str_replace(
+                    $javaScriptFiles['tags'][$key],
+                    $this->getJavaScriptContent($file),
+                    $html
+                );
+            }
         }
 
         return $html;
