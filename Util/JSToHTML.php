@@ -68,7 +68,7 @@ class JSToHTML
         $matches = array();
 
         preg_match_all(
-            '!' . $this->getExternalJavaScriptRegex() . '!',
+            '!' . $this->getExternalJavaScriptRegex() . '!isU',
             $html, $matches
         );
 
@@ -135,8 +135,6 @@ class JSToHTML
 
     /**
      * This contains the regex we'll use to find the JS files in a given string.
-     *
-     * @TODO improve regex to contain more possible matches.
      *
      * @return string
      */
