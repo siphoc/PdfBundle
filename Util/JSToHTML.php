@@ -156,7 +156,10 @@ class JSToHTML
         if ($this->isExternalJavaScriptFile($path)) {
             $fileData = $this->getRequestHandler()->getContent($path);
         } else {
-            $fileData = file_get_contents($path);
+            $fileData = '';
+            if (file_exists($path)) {
+                $fileData = file_get_contents($path);
+            }
         }
 
         return "<script type=\"text/javascript\">\n" . $fileData . "</script>";

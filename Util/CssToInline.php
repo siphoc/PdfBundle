@@ -179,7 +179,9 @@ class CssToInline
             if ($this->isExternalStylesheet($stylesheet)) {
                 $cssData .= $this->getRequestHandler()->getContent($stylesheet);
             } else {
-                $cssData .= file_get_contents($stylesheet);
+                if (file_exists($stylesheet)) {
+                    $cssData .= file_get_contents($stylesheet);
+                }
             }
         }
 
