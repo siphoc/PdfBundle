@@ -10,7 +10,6 @@
 namespace Siphoc\PdfBundle\Util;
 
 use Siphoc\PdfBundle\Util\RequestHandlerInterface;
-use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 /**
  * Convert a view to a proper inline CSS html page.
@@ -27,20 +26,6 @@ class CssToInline
     protected $basePath;
 
     /**
-     * The converter used for the inline replacement.
-     *
-     * @var CssToInlineStyles
-     */
-    protected $converter;
-
-    /**
-     * Follow external stylesheet files or not?
-     *
-     * @var boolean
-     */
-    protected $externalStylesheets = false;
-
-    /**
      * The request handler we'll be using to call external domains.
      *
      * @var RequestHandlerInterface
@@ -50,13 +35,10 @@ class CssToInline
     /**
      * Initiate the CssToInline converter for Symfony2.
      *
-     * @param CssToInlineStyles $converter
      * @param RequestHandlerInterface $requestHandler
      */
-    public function __construct(CssToInlineStyles $converter,
-        RequestHandlerInterface $requestHandler)
+    public function __construct(RequestHandlerInterface $requestHandler)
     {
-        $this->converter = $converter;
         $this->requestHandler = $requestHandler;
     }
 
@@ -69,34 +51,11 @@ class CssToInline
      */
     public function convertToString($html)
     {
-        $this->setConvertionOptions($html);
-        $convertedHtml = $this->converter->convert();
+        $externalStylesheets = $this->extractExternalStylesheets($html);
 
-        return $convertedHtml;
-    }
+        $html = $this->replaceExternalCss($html, $externalStylesheets);
 
-    /**
-     * Disable the usage of the <link stylesheets> tag in our HTML.
-     *
-     * @return CssToInline
-     */
-    public function disableExternalStylesheets()
-    {
-        $this->externalStylesheets = false;
-
-        return $this;
-    }
-
-    /**
-     * Enable the usage of the <link stylesheets> tag in our HTML.
-     *
-     * @return CssToInline
-     */
-    public function enableExternalStylesheets()
-    {
-        $this->externalStylesheets = true;
-
-        return $this;
+        return $html;
     }
 
     /**
@@ -116,7 +75,9 @@ class CssToInline
             $html, $matches
         );
 
-        return $this->createStylesheetPaths($matches['links']);
+        $links = $this->createStylesheetPaths($matches['links']);
+
+        return array('tags' => $matches[0], 'links' => $links);
     }
 
     /**
@@ -155,37 +116,45 @@ class CssToInline
     }
 
     /**
-     * Retrieve the previously set converter.
+     * Retrieve the contents from a CSS file.
      *
-     * @return CssToInlineStyles
-     */
-    public function getConverter()
-    {
-        return $this->converter;
-    }
-
-    /**
-     * From a set of external stylesheets, retrieve the data and concatenate it
-     * to one proper stylesheet string.
-     *
-     * @param array $stylesheets
+     * @param string $path
      * @return string
      */
-    public function getExternalCss(array $stylesheets)
+    private function getStylesheetContent($path)
     {
-        $cssData = '';
-
-        foreach ($stylesheets as $stylesheet) {
-            if ($this->isExternalStylesheet($stylesheet)) {
-                $cssData .= $this->getRequestHandler()->getContent($stylesheet);
-            } else {
-                if (file_exists($stylesheet)) {
-                    $cssData .= file_get_contents($stylesheet);
-                }
+        if ($this->isExternalStylesheet($path)) {
+            $cssData = $this->getRequestHandler()->getContent($path);
+        } else {
+            if (file_exists($path)) {
+                $cssData = file_get_contents($path);
             }
         }
 
-        return $cssData;
+        return "<style type=\"text/css\">\n" . $cssData . '</style>';
+    }
+
+    /**
+     * From a set of external stylesheets, retrieve the data and replace the
+     * matching CSS tag with the contents.
+     *
+     * @param string $html
+     * @param array $stylesheets
+     * @return string
+     */
+    public function replaceExternalCss($html, array $stylesheets)
+    {
+        foreach ($stylesheets['links'] as $key => $stylesheet) {
+            if (!$this->isExternalStylesheet($stylesheet)) {
+                $html = str_replace(
+                    $stylesheets['tags'][$key],
+                    $this->getStylesheetContent($stylesheet),
+                    $html
+                );
+            }
+        }
+
+        return $html;
     }
 
     /**
@@ -227,53 +196,6 @@ class CssToInline
         $this->basePath = (string) $basePath;
 
         return $this;
-    }
-
-    /**
-     * Strip the external stylesheet tags from a specified HTML string.
-     *
-     * @param string $html
-     * @return string
-     */
-    public function stripExternalStylesheetTags($html)
-    {
-        $html = preg_replace(
-            '/' . $this->getExternalStylesheetRegex() . '\n/',
-            '', $html
-        );
-
-        return $html;
-    }
-
-    /**
-     * Are we allowed to follow <link stylesheet> tags to include these
-     * stylesheets in our page?
-     *
-     * @return boolean
-     */
-    public function useExternalStylesheets()
-    {
-        return $this->externalStylesheets;
-    }
-
-    /**
-     * Set allt he options wanted to convert our HTML page into an inline CSS
-     * page.
-     *
-     * @param string $html
-     */
-    private function setConvertionOptions($html)
-    {
-        if ($this->useExternalStylesheets()) {
-            $externalStylesheets = $this->extractExternalStylesheets($html);
-            $html = $this->stripExternalStylesheetTags($html);
-
-            $externalCss = $this->getExternalCss($externalStylesheets);
-            $this->converter->setCss($externalCss);
-        }
-
-        $this->converter->setUseInlineStylesBlock(true);
-        $this->converter->setHtml($html);
     }
 
     /**

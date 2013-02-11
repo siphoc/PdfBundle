@@ -4,9 +4,6 @@ parameters:
     siphoc_pdf.binary: '/usr/local/bin/wkhtmltopdf'
 
 services:
-    tijsverkoyen.css_to_inline:
-        class: TijsVerkoyen\CssToInlineStyles\CssToInlineStyles
-
     buzz.request:
         class: Buzz\Message\Request
 
@@ -26,7 +23,7 @@ services:
 
     siphoc.pdf.css_to_inline:
         class: Siphoc\PdfBundle\Util\CssToInline
-        arguments: [ @tijsverkoyen.css_to_inline, @siphoc.buzz_request_handler ]
+        arguments: [ @siphoc.buzz_request_handler ]
         calls:
             - [ enableExternalStylesheets ]
             - [ setBasePath, [ %siphoc_pdf.basepath% ] ]
