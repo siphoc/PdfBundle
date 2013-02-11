@@ -1,5 +1,6 @@
 parameters:
     siphoc_pdf.basepath: ~
+    siphoc_pdf.options: []
     siphoc_pdf.binary: '/usr/local/bin/wkhtmltopdf'
 
 services:
@@ -17,7 +18,7 @@ services:
 
     knp.snappy.pdf:
         class: Knp\Snappy\Pdf
-        arguments: [ '/usr/local/bin/wkhtmltopdf' ]
+        arguments: [ %siphoc_pdf.binary%, %siphoc_pdf.options% ]
 
     siphoc.buzz_request_handler:
         class: Siphoc\PdfBundle\Util\BuzzRequestHandler
@@ -39,4 +40,3 @@ services:
     siphoc.pdf.generator:
         class: Siphoc\PdfBundle\Util\PdfGenerator
         arguments: [ @siphoc.pdf.css_to_inline, @siphoc.pdf.js_to_html, @knp.snappy.pdf ]
-

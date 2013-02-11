@@ -24,5 +24,10 @@ class SiphocPdfExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter('siphoc_pdf.basepath', $config['basepath']);
+        $container->setParameter('siphoc_pdf.binary', $config['binary']);
+        $container->setPArameter('siphoc_pdf.options', $config['options']);
     }
 }
+
