@@ -68,7 +68,7 @@ class JSToHTML
         $matches = array();
 
         preg_match_all(
-            '|' . $this->getExternalJavaScriptRegex() . '|',
+            '!' . $this->getExternalJavaScriptRegex() . '!',
             $html, $matches
         );
 
@@ -142,7 +142,7 @@ class JSToHTML
      */
     private function getExternalJavaScriptRegex()
     {
-        return '<script(.*)src="(?P<links>.*)"></script>';
+        return '<script(.*)src="(?(?=.*js)(?P<links>.[^">\ ]*)|)"(.*)>(.*)</script>';
     }
 
     /**
@@ -186,8 +186,6 @@ class JSToHTML
     /**
      * Replace the JavaScript tags that do external requests with inline
      * script blocks.
-     *
-     * @TODO: Implement external call action.
      *
      * @param string $html
      * @param array $javaScriptFiles
