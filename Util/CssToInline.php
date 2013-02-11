@@ -133,6 +133,8 @@ class CssToInline
 
         foreach ($stylesheets as $key => $sheet) {
             if (!$this->isExternalStylesheet($sheet)) {
+                // assetic version removal
+                $sheet = str_replace(strrchr($sheet, 'css?'), 'css', $sheet);
                 $sheet = $this->getBasePath() . $sheet;
             }
 
@@ -165,8 +167,6 @@ class CssToInline
     /**
      * From a set of external stylesheets, retrieve the data and concatenate it
      * to one proper stylesheet string.
-     *
-     * @TODO: Implement fetching from other servers.
      *
      * @param array $stylesheets
      * @return string
@@ -283,6 +283,6 @@ class CssToInline
      */
     private function getExternalStylesheetRegex()
     {
-        return '<link(.*)href="(?(?=.*css)(?P<links>.*)|)"(.*)>';
+        return '<link(.*)href="(?(?=.*css)(?P<links>.[^">\ ]*)|)"(.*)>';
     }
 }
