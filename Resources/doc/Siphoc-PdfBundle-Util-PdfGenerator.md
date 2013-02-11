@@ -17,13 +17,13 @@ Properties
 ----------
 
 
-### $cssToInline
+### $cssToHTML
 
 ```
-protected \Siphoc\PdfBundle\Util\CssToInline $cssToInline
+protected \Siphoc\PdfBundle\Util\CssToInline $cssToHTML
 ```
 
-The CssToInline Converter.
+The CssToHTML Converter.
 
 
 
@@ -50,7 +50,7 @@ Methods
 ### __construct
 
 ```
-mixed Siphoc\PdfBundle\Util\PdfGenerator::__construct(\Siphoc\PdfBundle\Util\CssToInline $cssToInline, \Siphoc\PdfBundle\Util\JSToHTML $jsToHTML, \Knp\Snappy\GeneratorInterface $generator)
+mixed Siphoc\PdfBundle\Util\PdfGenerator::__construct(\Siphoc\PdfBundle\Util\CssToHTML $cssToHTML, \Siphoc\PdfBundle\Util\JSToHTML $jsToHTML, \Knp\Snappy\GeneratorInterface $generator)
 ```
 
 Initiate the PDF Generator.
@@ -61,19 +61,19 @@ Initiate the PDF Generator.
 
 #### Arguments
 
-* $cssToInline **[Siphoc\PdfBundle\Util\CssToInline](Siphoc-PdfBundle-Util-CssToInline.md)**
+* $cssToHTML **[Siphoc\PdfBundle\Util\CssToHTML](Siphoc-PdfBundle-Util-CssToHTML.md)**
 * $jsToHTML **[Siphoc\PdfBundle\Util\JSToHTML](Siphoc-PdfBundle-Util-JSToHTML.md)**
 * $generator **Knp\Snappy\GeneratorInterface**
 
 
 
-### getCssToInlineConverter
+### getCssToHTMLConverter
 
 ```
-\Siphoc\PdfBundle\Util\CssToInline Siphoc\PdfBundle\Util\PdfGenerator::getCssToInlineConverter()
+\Siphoc\PdfBundle\Util\CssToHTML Siphoc\PdfBundle\Util\PdfGenerator::getCssToHTMLConverter()
 ```
 
-Get the CssToInline Converter.
+Get the CssToHTML Converter.
 
 
 
