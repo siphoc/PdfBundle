@@ -279,12 +279,10 @@ class CssToInline
     /**
      * The regex that we'll use to extract external stylesheets.
      *
-     * @TODO: Improve regex to contain a wider range of valid link syntaxes.
-     *
      * @return string
      */
     private function getExternalStylesheetRegex()
     {
-        return '<link rel="stylesheet" href="(?P<links>.*)">';
+        return '<link(.*)href="(?(?=.*css)(?P<links>.*)|)"(.*)>';
     }
 }
