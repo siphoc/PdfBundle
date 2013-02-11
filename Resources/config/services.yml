@@ -21,11 +21,10 @@ services:
         class: Siphoc\PdfBundle\Util\BuzzRequestHandler
         arguments: [ @buzz.request, @buzz.response, @buzz.client ]
 
-    siphoc.pdf.css_to_inline:
-        class: Siphoc\PdfBundle\Util\CssToInline
+    siphoc.pdf.css_to_html:
+        class: Siphoc\PdfBundle\Util\CssToHTML
         arguments: [ @siphoc.buzz_request_handler ]
         calls:
-            - [ enableExternalStylesheets ]
             - [ setBasePath, [ %siphoc_pdf.basepath% ] ]
 
     siphoc.pdf.js_to_html:
@@ -36,4 +35,4 @@ services:
 
     siphoc.pdf.generator:
         class: Siphoc\PdfBundle\Util\PdfGenerator
-        arguments: [ @siphoc.pdf.css_to_inline, @siphoc.pdf.js_to_html, @knp.snappy.pdf ]
+        arguments: [ @siphoc.pdf.css_to_html, @siphoc.pdf.js_to_html, @knp.snappy.pdf ]

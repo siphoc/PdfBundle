@@ -2,14 +2,14 @@
 
 namespace Siphoc\PdfBundle\Tests\Util;
 
-use Siphoc\PdfBundle\Util\CssToInline;
+use Siphoc\PdfBundle\Util\CssToHTML;
 
-class CssToInlineTest extends \PHPUnit_Framework_TestCase
+class CssToHTMLTest extends \PHPUnit_Framework_TestCase
 {
     public function test_constructor_with_basic_data()
     {
         $requestHandler = $this->getRequestHandlerMock();
-        $converter = new CssToInline($requestHandler);
+        $converter = new CssToHTML($requestHandler);
         $this->assertNull($converter->getBasePath());
         $this->assertSame($requestHandler, $converter->getRequestHandler());
     }
@@ -64,7 +64,7 @@ class CssToInlineTest extends \PHPUnit_Framework_TestCase
 
     private function getConverter()
     {
-        $converter = new CssToInline($this->getRequestHandlerMock());
+        $converter = new CssToHTML($this->getRequestHandlerMock());
         $converter->setBasePath($this->getFixturesPath());
 
         return $converter;

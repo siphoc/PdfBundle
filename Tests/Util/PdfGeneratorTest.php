@@ -14,7 +14,7 @@ class PDFGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $generator = new PdfGenerator($cssToInline, $jsToHTML, $snappy);
         $this->assertSame(
-            $cssToInline, $generator->getCssToInlineConverter()
+            $cssToInline, $generator->getCssToHTMLConverter()
         );
         $this->assertSame(
             $jsToHTML, $generator->getJSToHTMLConverter()
@@ -63,7 +63,7 @@ class PDFGeneratorTest extends \PHPUnit_Framework_TestCase
 
     private function getCssToInlineMock()
     {
-        $converter = $this->getMockBuilder('Siphoc\PdfBundle\Util\CssToInline')
+        $converter = $this->getMockBuilder('Siphoc\PdfBundle\Util\CssToHTML')
             ->disableOriginalConstructor()->getMock();
 
         $converter->expects($this->any())

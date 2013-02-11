@@ -10,7 +10,7 @@
 namespace Siphoc\PdfBundle\Util;
 
 use Knp\Snappy\GeneratorInterface;
-use Siphoc\PdfBundle\Util\CssToInline;
+use Siphoc\PdfBundle\Util\CssToHTML;
 use Siphoc\PdfBundle\Util\JSToHTML;
 
 /**
@@ -24,11 +24,11 @@ use Siphoc\PdfBundle\Util\JSToHTML;
 class PdfGenerator
 {
     /**
-     * The CssToInline Converter.
+     * The CssToHTML Converter.
      *
      * @var CssToInline
      */
-    protected $cssToInline;
+    protected $cssToHTML;
 
     /**
      * The JSToHTML Converter.
@@ -40,26 +40,26 @@ class PdfGenerator
     /**
      * Initiate the PDF Generator.
      *
-     * @param CssToInline $cssToInline
+     * @param CssToHTML $cssToHTML
      * @param JSToHTML $jsToHTML
      * @param GeneratorInterface $generator
      */
-    public function __construct(CssToInline $cssToInline, JSToHTML $jsToHTML,
+    public function __construct(CssToHTML $cssToHTML, JSToHTML $jsToHTML,
         GeneratorInterface $generator)
     {
-        $this->cssToInline = $cssToInline;
+        $this->cssToHTML = $cssToHTML;
         $this->jsToHTML = $jsToHTML;
         $this->generator = $generator;
     }
 
     /**
-     * Get the CssToInline Converter.
+     * Get the CssToHTML Converter.
      *
-     * @return CssToInline
+     * @return CssToHTML
      */
-    public function getCssToInlineConverter()
+    public function getCssToHTMLConverter()
     {
-        return $this->cssToInline;
+        return $this->cssToHTML;
     }
 
     /**
@@ -92,7 +92,7 @@ class PdfGenerator
      */
     public function getOutputFromHtml($html, array $options = array())
     {
-        $html = $this->getCssToInlineConverter()->convertToString($html);
+        $html = $this->getCssToHTMLConverter()->convertToString($html);
         $html = $this->getJSToHTMLConverter()->convertToString($html);
 
         return $this->getGenerator()->getOutputFromHtml($html, $options);

@@ -16,7 +16,7 @@ use Siphoc\PdfBundle\Util\RequestHandlerInterface;
  *
  * @author Jelmer Snoeck <jelmer@siphoc.com>
  */
-class CssToInline
+class CssToHTML
 {
     /**
      * The basepath for our css files. This is basically the /web folder.
@@ -33,7 +33,7 @@ class CssToInline
     protected $requestHandler;
 
     /**
-     * Initiate the CssToInline converter for Symfony2.
+     * Initiate the CssToHTML converter for Symfony2.
      *
      * @param RequestHandlerInterface $requestHandler
      */
@@ -44,7 +44,7 @@ class CssToInline
 
     /**
      * Convert a specified HTML string with CSS data to a HTML string with
-     * inline CSS data.
+     * inline CSS data in proper <style> blocks.
      *
      * @param string $html
      * @return string
@@ -189,7 +189,7 @@ class CssToInline
      * Set the base path we'll use to fetch our css files from.
      *
      * @param string $basePath      The base path where our css files are.
-     * @return CssToInline
+     * @return CssToHTML
      */
     public function setBasePath($basePath)
     {
