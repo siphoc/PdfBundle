@@ -140,7 +140,7 @@ class JSToHTML
      */
     private function getExternalJavaScriptRegex()
     {
-        return '<script(.*)src="(?(?=.*js)(?P<links>.[^">\ ]*)|)"(.*)>(.*)</script>';
+        return '<script(.[^>]*)src="(?(?=.*js)(?P<links>.[^">\ ]*)|)"(.[^>]*)></script>';
     }
 
     /**
