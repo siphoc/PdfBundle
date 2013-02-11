@@ -80,6 +80,9 @@ If you want to contribute, be sure to update the documentation and run both
 [PHPDocumentor2](http://www.phpdoc.org/) and PHPDoc Markdown.
 This way the documentation keeps up to date properly.
 
+## Development
+This bundle is mainly created and maintained for [Darwin Analytics](https://github.com/darwinanalytics/).
+
 ## Tests
 For tests I've used PHPUnit. Contributions need to be supported with tests.
 
