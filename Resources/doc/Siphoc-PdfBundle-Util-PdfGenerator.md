@@ -61,8 +61,8 @@ Initiate the PDF Generator.
 
 #### Arguments
 
-* $cssToInline **[Siphoc\PdfBundle\Util\CssToInline](Siphoc-PdfBundle-Util-CssToInline)**
-* $jsToHTML **[Siphoc\PdfBundle\Util\JSToHTML](Siphoc-PdfBundle-Util-JSToHTML)**
+* $cssToInline **[Siphoc\PdfBundle\Util\CssToInline](Siphoc-PdfBundle-Util-CssToInline.md)**
+* $jsToHTML **[Siphoc\PdfBundle\Util\JSToHTML](Siphoc-PdfBundle-Util-JSToHTML.md)**
 * $generator **Knp\Snappy\GeneratorInterface**
 
 

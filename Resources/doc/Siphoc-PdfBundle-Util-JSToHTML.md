@@ -62,7 +62,7 @@ Initiate the JSToHTML class with the request handler interface.
 
 #### Arguments
 
-* $handler **[Siphoc\PdfBundle\Util\RequestHandlerInterface](Siphoc-PdfBundle-Util-RequestHandlerInterface)**
+* $handler **[Siphoc\PdfBundle\Util\RequestHandlerInterface](Siphoc-PdfBundle-Util-RequestHandlerInterface.md)**
 
 
 

@@ -88,7 +88,7 @@ Initiate the CssToInline converter for Symfony2.
 #### Arguments
 
 * $converter **TijsVerkoyen\CssToInlineStyles\CssToInlineStyles**
-* $requestHandler **[Siphoc\PdfBundle\Util\RequestHandlerInterface](Siphoc-PdfBundle-Util-RequestHandlerInterface)**
+* $requestHandler **[Siphoc\PdfBundle\Util\RequestHandlerInterface](Siphoc-PdfBundle-Util-RequestHandlerInterface.md)**
 
 
 
