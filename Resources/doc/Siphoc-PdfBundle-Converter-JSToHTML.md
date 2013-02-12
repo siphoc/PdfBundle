@@ -1,4 +1,4 @@
-Siphoc\PdfBundle\Util\JSToHTML
+Siphoc\PdfBundle\Converter\JSToHTML
 ===============
 
 Given a HTML page, take the external JS files and put it in the HTML with
@@ -8,8 +8,8 @@ Given a HTML page, take the external JS files and put it in the HTML with
 
 
 * Class name: JSToHTML
-* Namespace: Siphoc\PdfBundle\Util
-
+* Namespace: Siphoc\PdfBundle\Converter
+* This class implements: [Siphoc\PdfBundle\Converter\ConverterInterface](Siphoc-PdfBundle-Converter-ConverterInterface.md)
 
 
 
@@ -51,7 +51,7 @@ Methods
 ### __construct
 
 ```
-mixed Siphoc\PdfBundle\Util\JSToHTML::__construct(\Siphoc\PdfBundle\Util\RequestHandlerInterface $handler)
+mixed Siphoc\PdfBundle\Converter\JSToHTML::__construct(\Siphoc\PdfBundle\Util\RequestHandlerInterface $handler)
 ```
 
 Initiate the JSToHTML class with the request handler interface.
@@ -69,7 +69,7 @@ Initiate the JSToHTML class with the request handler interface.
 ### convertToString
 
 ```
-string Siphoc\PdfBundle\Util\JSToHTML::convertToString(string $html)
+string Siphoc\PdfBundle\Converter\JSToHTML::convertToString(string $html)
 ```
 
 Extract all the linked JS files and put them in the proper place on the
@@ -88,7 +88,7 @@ given HTML string.
 ### extractExternalJavaScript
 
 ```
-array Siphoc\PdfBundle\Util\JSToHTML::extractExternalJavaScript(string $html)
+array Siphoc\PdfBundle\Converter\JSToHTML::extractExternalJavaScript(string $html)
 ```
 
 Given a HTML string, find all the JS files that should be loaded.
@@ -106,7 +106,7 @@ Given a HTML string, find all the JS files that should be loaded.
 ### getBasePath
 
 ```
-string Siphoc\PdfBundle\Util\JSToHTML::getBasePath()
+string Siphoc\PdfBundle\Converter\JSToHTML::getBasePath()
 ```
 
 Retrieve the BasePath used for this inline action.
@@ -120,7 +120,7 @@ Retrieve the BasePath used for this inline action.
 ### getRequestHandler
 
 ```
-\Siphoc\PdfBundle\Util\RequestHandlerInterface Siphoc\PdfBundle\Util\JSToHTML::getRequestHandler()
+\Siphoc\PdfBundle\Util\RequestHandlerInterface Siphoc\PdfBundle\Converter\JSToHTML::getRequestHandler()
 ```
 
 Retrieve the Request Handler used for external calls.
@@ -134,7 +134,7 @@ Retrieve the Request Handler used for external calls.
 ### setBasePath
 
 ```
-\Siphoc\PdfBundle\Util\CssToInline Siphoc\PdfBundle\Util\JSToHTML::setBasePath(string $basePath)
+\Siphoc\PdfBundle\Converter\CssToInline Siphoc\PdfBundle\Converter\JSToHTML::setBasePath(string $basePath)
 ```
 
 Set the base path we'll use to fetch our css files from.
@@ -152,7 +152,7 @@ Set the base path we'll use to fetch our css files from.
 ### createJavaScriptPaths
 
 ```
-array Siphoc\PdfBundle\Util\JSToHTML::createJavaScriptPaths(array $javascripts)
+array Siphoc\PdfBundle\Converter\JSToHTML::createJavaScriptPaths(array $javascripts)
 ```
 
 Check if a JavaScript file is a local or externalJavaScript file or.
@@ -172,7 +172,7 @@ fetch the data to insert.</p>
 ### getExternalJavaScriptRegex
 
 ```
-string Siphoc\PdfBundle\Util\JSToHTML::getExternalJavaScriptRegex()
+string Siphoc\PdfBundle\Converter\JSToHTML::getExternalJavaScriptRegex()
 ```
 
 This contains the regex we'll use to find the JS files in a given string.
@@ -186,7 +186,7 @@ This contains the regex we'll use to find the JS files in a given string.
 ### getJavaScriptContent
 
 ```
-string Siphoc\PdfBundle\Util\JSToHTML::getJavaScriptContent(string $path)
+string Siphoc\PdfBundle\Converter\JSToHTML::getJavaScriptContent(string $path)
 ```
 
 Fetch the content of a JavaScript file from a given path.
@@ -204,7 +204,7 @@ Fetch the content of a JavaScript file from a given path.
 ### isExternalJavaScriptFile
 
 ```
-boolean Siphoc\PdfBundle\Util\JSToHTML::isExternalJavaScriptFile(string $url)
+boolean Siphoc\PdfBundle\Converter\JSToHTML::isExternalJavaScriptFile(string $url)
 ```
 
 Check if the given string is a string for a local JavaScript file or an
@@ -223,7 +223,7 @@ external JavaScript.
 ### replaceJavaScriptTags
 
 ```
-string Siphoc\PdfBundle\Util\JSToHTML::replaceJavaScriptTags(string $html, array $javaScriptFiles)
+string Siphoc\PdfBundle\Converter\JSToHTML::replaceJavaScriptTags(string $html, array $javaScriptFiles)
 ```
 
 Replace the JavaScript tags that do external requests with inline

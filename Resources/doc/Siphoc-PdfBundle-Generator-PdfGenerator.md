@@ -1,4 +1,4 @@
-Siphoc\PdfBundle\Util\PdfGenerator
+Siphoc\PdfBundle\Generator\PdfGenerator
 ===============
 
 The actual PDF Generator that&#039;ll transform a view into a proper PDF.
@@ -7,7 +7,7 @@ The actual PDF Generator that&#039;ll transform a view into a proper PDF.
 
 
 * Class name: PdfGenerator
-* Namespace: Siphoc\PdfBundle\Util
+* Namespace: Siphoc\PdfBundle\Generator
 
 
 
@@ -20,7 +20,7 @@ Properties
 ### $cssToHTML
 
 ```
-protected \Siphoc\PdfBundle\Util\CssToInline $cssToHTML
+protected \Siphoc\PdfBundle\Generator\CssToInline $cssToHTML
 ```
 
 The CssToHTML Converter.
@@ -33,7 +33,7 @@ The CssToHTML Converter.
 ### $jsToHTML
 
 ```
-protected \Siphoc\PdfBundle\Util\JSToHTML $jsToHTML
+protected \Siphoc\PdfBundle\Converter\JSToHTML $jsToHTML
 ```
 
 The JSToHTML Converter.
@@ -50,7 +50,7 @@ Methods
 ### __construct
 
 ```
-mixed Siphoc\PdfBundle\Util\PdfGenerator::__construct(\Siphoc\PdfBundle\Util\CssToHTML $cssToHTML, \Siphoc\PdfBundle\Util\JSToHTML $jsToHTML, \Knp\Snappy\GeneratorInterface $generator)
+mixed Siphoc\PdfBundle\Generator\PdfGenerator::__construct(\Siphoc\PdfBundle\Converter\CssToHTML $cssToHTML, \Siphoc\PdfBundle\Converter\JSToHTML $jsToHTML, \Knp\Snappy\GeneratorInterface $generator)
 ```
 
 Initiate the PDF Generator.
@@ -61,8 +61,8 @@ Initiate the PDF Generator.
 
 #### Arguments
 
-* $cssToHTML **[Siphoc\PdfBundle\Util\CssToHTML](Siphoc-PdfBundle-Util-CssToHTML.md)**
-* $jsToHTML **[Siphoc\PdfBundle\Util\JSToHTML](Siphoc-PdfBundle-Util-JSToHTML.md)**
+* $cssToHTML **[Siphoc\PdfBundle\Converter\CssToHTML](Siphoc-PdfBundle-Converter-CssToHTML.md)**
+* $jsToHTML **[Siphoc\PdfBundle\Converter\JSToHTML](Siphoc-PdfBundle-Converter-JSToHTML.md)**
 * $generator **Knp\Snappy\GeneratorInterface**
 
 
@@ -70,7 +70,7 @@ Initiate the PDF Generator.
 ### getCssToHTMLConverter
 
 ```
-\Siphoc\PdfBundle\Util\CssToHTML Siphoc\PdfBundle\Util\PdfGenerator::getCssToHTMLConverter()
+\Siphoc\PdfBundle\Converter\CssToHTML Siphoc\PdfBundle\Generator\PdfGenerator::getCssToHTMLConverter()
 ```
 
 Get the CssToHTML Converter.
@@ -84,7 +84,7 @@ Get the CssToHTML Converter.
 ### getJSToHTMLConverter
 
 ```
-\Siphoc\PdfBundle\Util\JSToHTML Siphoc\PdfBundle\Util\PdfGenerator::getJSToHTMLConverter()
+\Siphoc\PdfBundle\Converter\JSToHTML Siphoc\PdfBundle\Generator\PdfGenerator::getJSToHTMLConverter()
 ```
 
 Get the JSToHTML Converter.
@@ -98,7 +98,7 @@ Get the JSToHTML Converter.
 ### getGenerator
 
 ```
-\Knp\Snappy\GeneratorInterface Siphoc\PdfBundle\Util\PdfGenerator::getGenerator()
+\Knp\Snappy\GeneratorInterface Siphoc\PdfBundle\Generator\PdfGenerator::getGenerator()
 ```
 
 Retrieve the generator we're using to convert our data to HTML.
@@ -112,7 +112,7 @@ Retrieve the generator we're using to convert our data to HTML.
 ### getOutputFromHtml
 
 ```
-string Siphoc\PdfBundle\Util\PdfGenerator::getOutputFromHtml(string $html, array $options)
+string Siphoc\PdfBundle\Generator\PdfGenerator::getOutputFromHtml(string $html, array $options)
 ```
 
 Generate the PDF from a given HTML string.
