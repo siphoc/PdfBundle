@@ -49,26 +49,13 @@ In your config.yml file:
 
 In your controller, you can download the contents of your controller like this:
 
-    $html = $this->renderView(
+    $pdfGenerator = $this->get('siphoc.pdf.generator');
+    $pdfGenerator->setName('my_pdf.pdf');
+    return $pdfGenerator->downloadFromView(
         'AcmeDemoBundle:Demo:index.html.twig', array(
             'name' => $name,
         )
     );
-
-    $pdfGenerator = $this->get('siphoc.pdf.generator');
-
-    return new Response(
-        $pdfGenerator->getOutputFromHtml($html),
-        200,
-        array(
-            'Content-Type'          => 'application/pdf',
-            'Content-Disposition'   => 'attachment; filename="file.pdf"'
-        )
-    );
-
-In the future, I'll provide a way that you can skip the $this->renderView() and
-new Response() part. It'll create a response depending on your view and
-paramameters. For now, this is the way to go.
 
 ## Documentation
 The main Documentation can be found in Resources/doc/index.html. It is
