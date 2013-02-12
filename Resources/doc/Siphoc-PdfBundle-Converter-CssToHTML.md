@@ -8,7 +8,7 @@ Convert a view to a proper inline CSS html page.
 
 * Class name: CssToHTML
 * Namespace: Siphoc\PdfBundle\Converter
-* Parent class: [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter.md)
+* Parent class: [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter)
 
 
 
@@ -62,7 +62,7 @@ Initiate the CssToHTML converter for Symfony2.
 
 #### Arguments
 
-* $requestHandler **[Siphoc\PdfBundle\Util\RequestHandlerInterface](Siphoc-PdfBundle-Util-RequestHandlerInterface.md)**
+* $requestHandler **[Siphoc\PdfBundle\Util\RequestHandlerInterface](Siphoc-PdfBundle-Util-RequestHandlerInterface)**
 
 
 
@@ -221,7 +221,7 @@ enabled.
 basePath.</p>
 
 * Visibility: **public**
-* This method is defined by [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter.md)
+* This method is defined by [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter)
 
 #### Arguments
 
@@ -240,7 +240,7 @@ The regex that we'll use to extract external stylesheets.
 
 
 * Visibility: **protected**
-* This method is defined by [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter.md)
+* This method is defined by [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter)
 
 
 
@@ -256,7 +256,7 @@ external stylesheet.
 
 
 * Visibility: **protected**
-* This method is defined by [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter.md)
+* This method is defined by [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter)
 
 #### Arguments
 

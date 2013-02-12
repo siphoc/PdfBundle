@@ -9,7 +9,7 @@ an HTML file.
 
 * Class name: CssPathToUrl
 * Namespace: Siphoc\PdfBundle\Converter
-* Parent class: [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter.md)
+* Parent class: [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter)
 
 
 
@@ -139,7 +139,7 @@ enabled.
 basePath.</p>
 
 * Visibility: **public**
-* This method is defined by [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter.md)
+* This method is defined by [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter)
 
 #### Arguments
 
@@ -158,7 +158,7 @@ The regex that we'll use to extract external stylesheets.
 
 
 * Visibility: **protected**
-* This method is defined by [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter.md)
+* This method is defined by [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter)
 
 
 
@@ -174,7 +174,7 @@ external stylesheet.
 
 
 * Visibility: **protected**
-* This method is defined by [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter.md)
+* This method is defined by [Siphoc\PdfBundle\Converter\CssConverter](Siphoc-PdfBundle-Converter-CssConverter)
 
 #### Arguments
 

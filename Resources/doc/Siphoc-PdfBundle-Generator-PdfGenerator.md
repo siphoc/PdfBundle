@@ -17,6 +17,19 @@ Properties
 ----------
 
 
+### $filename
+
+```
+protected string $filename = 'siphoc_pdfbundle.pdf'
+```
+
+The default filename we'll use for the downloadable file.
+
+
+
+* Visibility: **protected**
+
+
 ### $cssToHTML
 
 ```
@@ -43,6 +56,19 @@ The JSToHTML Converter.
 * Visibility: **protected**
 
 
+### $templateEngine
+
+```
+protected \Symfony\Component\Templating\EngineInterface $templateEngine
+```
+
+The template engine we'll use to process our views.
+
+
+
+* Visibility: **protected**
+
+
 Methods
 -------
 
@@ -50,7 +76,7 @@ Methods
 ### __construct
 
 ```
-mixed Siphoc\PdfBundle\Generator\PdfGenerator::__construct(\Siphoc\PdfBundle\Converter\ConverterInterface $cssToHTML, \Siphoc\PdfBundle\Converter\ConverterInterface $jsToHTML, \Knp\Snappy\GeneratorInterface $generator)
+mixed Siphoc\PdfBundle\Generator\PdfGenerator::__construct(\Siphoc\PdfBundle\Converter\ConverterInterface $cssToHTML, \Siphoc\PdfBundle\Converter\ConverterInterface $jsToHTML, \Knp\Snappy\GeneratorInterface $generator, \Symfony\Component\Templating\EngineInterface $templateEngine)
 ```
 
 Initiate the PDF Generator.
@@ -61,9 +87,10 @@ Initiate the PDF Generator.
 
 #### Arguments
 
-* $cssToHTML **[Siphoc\PdfBundle\Converter\ConverterInterface](Siphoc-PdfBundle-Converter-ConverterInterface.md)**
-* $jsToHTML **[Siphoc\PdfBundle\Converter\ConverterInterface](Siphoc-PdfBundle-Converter-ConverterInterface.md)**
+* $cssToHTML **[Siphoc\PdfBundle\Converter\ConverterInterface](Siphoc-PdfBundle-Converter-ConverterInterface)**
+* $jsToHTML **[Siphoc\PdfBundle\Converter\ConverterInterface](Siphoc-PdfBundle-Converter-ConverterInterface)**
 * $generator **Knp\Snappy\GeneratorInterface**
+* $templateEngine **Symfony\Component\Templating\EngineInterface**
 
 
 
@@ -74,6 +101,34 @@ Initiate the PDF Generator.
 ```
 
 Get the CssToHTML Converter.
+
+
+
+* Visibility: **public**
+
+
+
+### getGenerator
+
+```
+\Knp\Snappy\GeneratorInterface Siphoc\PdfBundle\Generator\PdfGenerator::getGenerator()
+```
+
+Retrieve the generator we're using to convert our data to HTML.
+
+
+
+* Visibility: **public**
+
+
+
+### getTemplatingEngine
+
+```
+\Symfony\Component\Templating\EngineInterface Siphoc\PdfBundle\Generator\PdfGenerator::getTemplatingEngine()
+```
+
+Retrieve the templating engine.
 
 
 
@@ -95,13 +150,13 @@ Get the JSToHTML Converter.
 
 
 
-### getGenerator
+### getName
 
 ```
-\Knp\Snappy\GeneratorInterface Siphoc\PdfBundle\Generator\PdfGenerator::getGenerator()
+string Siphoc\PdfBundle\Generator\PdfGenerator::getName()
 ```
 
-Retrieve the generator we're using to convert our data to HTML.
+Retrieve the name for this PDF file.
 
 
 
@@ -126,5 +181,65 @@ tags with inline blocks/code.</p>
 
 * $html **string**
 * $options **array**
+
+
+
+### getOutputFromView
+
+```
+string Siphoc\PdfBundle\Generator\PdfGenerator::getOutputFromView(string $view, array $parameters, array $options)
+```
+
+Retrieve the output from a Symfony view.
+
+<p>This uses the selected
+template engine and renders it trough that.</p>
+
+* Visibility: **public**
+
+#### Arguments
+
+* $view **string**
+* $parameters **array**
+* $options **array**
+
+
+
+### downloadFromView
+
+```
+\Symfony\Component\HttpFoundation\Response Siphoc\PdfBundle\Generator\PdfGenerator::downloadFromView(string $view, array $parameters, array $options)
+```
+
+From a given view and parameters, create the proper response so we can
+easily download the file.
+
+
+
+* Visibility: **public**
+
+#### Arguments
+
+* $view **string**
+* $parameters **array**
+* $options **array** - Additional options for WKHTMLToPDF.
+
+
+
+### setName
+
+```
+\Siphoc\PdfBundle\Generator\PdfGenerator Siphoc\PdfBundle\Generator\PdfGenerator::setName(string $name)
+```
+
+Set the name we'll use for the PDF file.
+
+
+
+* Visibility: **public**
+
+#### Arguments
+
+* $name **string**
 
 
