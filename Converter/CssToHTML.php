@@ -115,7 +115,40 @@ class CssToHTML extends CssConverter
             }
         }
 
+        $cssData = $this->replaceLocalUrlTags($cssData);
+
         return "<style type=\"text/css\">\n" . $cssData . '</style>';
+    }
+
+    /**
+     * From a given CSS string, replace all the local url tags. This means
+     * replacing all the url(x) tags.
+     *
+     * @param string $css
+     * @return string
+     */
+    private function replaceLocalUrlTags($css)
+    {
+        $urlMatches = array();
+
+        preg_match_all(
+            '!url\((?P<urls>.[^)]*)\)!isU',
+            $css, $urlMatches
+        );
+
+        foreach ($urlMatches[0] as $key => $tag) {
+            if (!$this->isExternalStylesheet($tag)) {
+                $url = $this->getBasePath() . $urlMatches['urls'][$key];
+
+                $css = str_replace(
+                    $tag,
+                    'url(' . $url . ')',
+                    $css
+                );
+            }
+        }
+
+        return $css;
     }
 
     /**

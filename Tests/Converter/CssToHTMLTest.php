@@ -52,6 +52,10 @@ class CssToHTMLTest extends \PHPUnit_Framework_TestCase
         $convertedData = file_get_contents(
             $this->getFixturesPath() . '/converted_css_data.html'
         );
+        $convertedData = str_replace(
+            '{{ FixturesPath }}', $this->getFixturesPath(),
+            $convertedData
+        );
 
         $this->assertEquals(
             $convertedData,
