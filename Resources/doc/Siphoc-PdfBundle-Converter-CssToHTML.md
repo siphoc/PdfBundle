@@ -137,6 +137,25 @@ Retrieve the contents from a CSS file.
 
 
 
+### replaceLocalUrlTags
+
+```
+string Siphoc\PdfBundle\Converter\CssToHTML::replaceLocalUrlTags(string $css)
+```
+
+From a given CSS string, replace all the local url tags.
+
+<p>This means
+replacing all the url(x) tags.</p>
+
+* Visibility: **private**
+
+#### Arguments
+
+* $css **string**
+
+
+
 ### replaceExternalCss
 
 ```

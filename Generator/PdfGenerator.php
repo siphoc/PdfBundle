@@ -39,8 +39,8 @@ class PdfGenerator
     /**
      * Initiate the PDF Generator.
      *
-     * @param CssToHTML $cssToHTML
-     * @param JSToHTML $jsToHTML
+     * @param ConverterInterface $cssToHTML
+     * @param ConverterInterface $jsToHTML
      * @param GeneratorInterface $generator
      */
     public function __construct(ConverterInterface $cssToHTML,
