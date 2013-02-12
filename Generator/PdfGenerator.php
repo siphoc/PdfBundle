@@ -17,9 +17,6 @@ use Symfony\Component\Templating\EngineInterface;
 /**
  * The actual PDF Generator that'll transform a view into a proper PDF.
  *
- * @TODO: enable view name support. This means giving the view name + parameters
- * and rendering all the required data to properly build a PDF.
- *
  * @author Jelmer Snoeck <jelmer@siphoc.com>
  */
 class PdfGenerator
@@ -136,22 +133,41 @@ class PdfGenerator
     }
 
     /**
+     * Retrieve the output from a Symfony view. This uses the selected
+     * template engine and renders it trough that.
+     *
+     * @param string $view
+     * @param array $parameters
+     * @return string
+     */
+    public function getOutputFromView($view, array $parameters = array(),
+        array $options = array())
+    {
+        $html = $this->getTemplatingEngine()->render($view, $parameters);
+
+        return $this->getGenerator()->getOutputFromHtml($html, $options);
+    }
+
+    /**
      * From a given view and parameters, create the proper response so we can
      * easily download the file.
      *
      * @param string $view
      * @param array $parameters
+     * @param array $options    Additional options for WKHTMLToPDF.
      * @return Response
      */
-    public function downloadFromView($view, array $parameters = array())
+    public function downloadFromView($view, array $parameters = array(),
+        array $options = array())
     {
-        $html = $this->getTemplatingEngine()->render($view, $parameters);
+        $contentDisposition = 'attachment; filename="' . $this->getName() . '"';
 
         return new Response(
-            $this->getOutputFromHtml($html), 200,
+            $this->getOutputFromView($view, $parameters, $options),
+            200,
             array(
                 'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="' . $this->getName() . '"'
+                'Content-Disposition'   => $contentDisposition,
             )
         );
     }
