@@ -47,6 +47,7 @@ class SiphocPdfExtension extends Extension
                     new Reference($cssConverter),
                     new Reference($jsConverter),
                     new Reference('knp.snappy.pdf'),
+                    new Reference('templating'),
                 )
             )
         );
