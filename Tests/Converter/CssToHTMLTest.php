@@ -22,22 +22,24 @@ class CssToHTMLTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function test_it_extracts_external_stylesheets()
+    public function test_it_creates_proper_stylesheet_paths()
     {
         $converter = $this->getConverter();
         $htmlFile = $this->getFixturesPath() . '/stylesheet_test.html';
 
         $htmlData = file_get_contents($htmlFile);
-        $externalStylesheets = $converter
+        $extractedStylesheets = $converter
             ->extractExternalStylesheets($htmlData);
+        $links = $converter
+            ->createStylesheetPaths($extractedStylesheets['links']);
 
         $this->assertEquals(
             $this->getFixturesPath() . '/css/3809e64.css',
-            $externalStylesheets['links'][0]
+            $links[0]
         );
         $this->assertEquals(
             'http://google.com/css/3809e64.css',
-            $externalStylesheets['links'][1]
+            $links[1]
         );
     }
 

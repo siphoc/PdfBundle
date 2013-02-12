@@ -16,7 +16,7 @@ use Siphoc\PdfBundle\Util\RequestHandlerInterface;
  *
  * @author Jelmer Snoeck <jelmer@siphoc.com>
  */
-class CssToHTML implements ConverterInterface
+class CssToHTML extends CssConverter
 {
     /**
      * The basepath for our css files. This is basically the /web folder.
@@ -51,33 +51,17 @@ class CssToHTML implements ConverterInterface
      */
     public function convertToString($html)
     {
-        $externalStylesheets = $this->extractExternalStylesheets($html);
+        $extractedStylesheets = $this->extractExternalStylesheets($html);
+        $links = $this->createStylesheetPaths($extractedStylesheets['links']);
+
+        $externalStylesheets =  array(
+            'tags' => $extractedStylesheets[0],
+            'links' => $links
+        );
 
         $html = $this->replaceExternalCss($html, $externalStylesheets);
 
         return $html;
-    }
-
-    /**
-     * Extract the external stylesheets from the specified HTML if the option is
-     * enabled. If the stylesheet is not in the form of a url, prepend our
-     * basePath.
-     *
-     * @param string $html
-     * @return array
-     */
-    public function extractExternalStylesheets($html)
-    {
-        $matches = array();
-
-        preg_match_all(
-            '/' . $this->getExternalStylesheetRegex() . '/',
-            $html, $matches
-        );
-
-        $links = $this->createStylesheetPaths($matches['links']);
-
-        return array('tags' => $matches[0], 'links' => $links);
     }
 
     /**
@@ -88,7 +72,7 @@ class CssToHTML implements ConverterInterface
      * @param array $stylesheets
      * @return array
      */
-    private function createStylesheetPaths(array $stylesheets)
+    public function createStylesheetPaths(array $stylesheets)
     {
         $sheets = array();
 
@@ -168,24 +152,6 @@ class CssToHTML implements ConverterInterface
     }
 
     /**
-     * Check if the given string is a string for a local stylesheet or an
-     * external stylesheet.
-     *
-     * @TODO: Improve regex to contain bigger range of urls.
-     *
-     * @param string $url
-     * @return boolean
-     */
-    private function isExternalStylesheet($url)
-    {
-        if (1 === preg_match('/(http|https):\/\//', $url)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Set the base path we'll use to fetch our css files from.
      *
      * @param string $basePath      The base path where our css files are.
@@ -196,15 +162,5 @@ class CssToHTML implements ConverterInterface
         $this->basePath = (string) $basePath;
 
         return $this;
-    }
-
-    /**
-     * The regex that we'll use to extract external stylesheets.
-     *
-     * @return string
-     */
-    private function getExternalStylesheetRegex()
-    {
-        return '<link(.*)href="(?(?=.*css)(?P<links>.[^">\ ]*)|)"(.*)>';
     }
 }
