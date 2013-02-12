@@ -16,7 +16,7 @@ use Siphoc\PdfBundle\Util\RequestHandlerInterface;
  *
  * @author Jelmer Snoeck <jelmer@siphoc.com>
  */
-class CssToHTML
+class CssToHTML implements ConverterInterface
 {
     /**
      * The basepath for our css files. This is basically the /web folder.

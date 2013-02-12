@@ -17,7 +17,7 @@ use Siphoc\PdfBundle\Util\RequestHandlerInterface;
  *
  * @author Jelmer Snoeck <jelmer@siphoc.com>
  */
-class JSToHTML
+class JSToHTML implements ConverterInterface
 {
     /**
      * The basepath for our JS files. This is basically the /web folder.
