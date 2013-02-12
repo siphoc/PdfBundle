@@ -11,6 +11,8 @@ namespace Siphoc\PdfBundle\Generator;
 
 use Knp\Snappy\GeneratorInterface;
 use Siphoc\PdfBundle\Converter\ConverterInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Templating\EngineInterface;
 
 /**
  * The actual PDF Generator that'll transform a view into a proper PDF.
@@ -22,6 +24,13 @@ use Siphoc\PdfBundle\Converter\ConverterInterface;
  */
 class PdfGenerator
 {
+    /**
+     * The default filename we'll use for the downloadable file.
+     *
+     * @var string
+     */
+    protected $filename = 'siphoc_pdfbundle.pdf';
+
     /**
      * The CssToHTML Converter.
      *
@@ -37,6 +46,13 @@ class PdfGenerator
     protected $jsToHTML;
 
     /**
+     * The template engine we'll use to process our views.
+     *
+     * @var EngineInterface
+     */
+    protected $templateEngine;
+
+    /**
      * Initiate the PDF Generator.
      *
      * @param ConverterInterface $cssToHTML
@@ -44,11 +60,13 @@ class PdfGenerator
      * @param GeneratorInterface $generator
      */
     public function __construct(ConverterInterface $cssToHTML,
-        ConverterInterface $jsToHTML, GeneratorInterface $generator)
+        ConverterInterface $jsToHTML, GeneratorInterface $generator,
+        EngineInterface $templateEngine)
     {
         $this->cssToHTML = $cssToHTML;
         $this->jsToHTML = $jsToHTML;
         $this->generator = $generator;
+        $this->templateEngine = $templateEngine;
     }
 
     /**
@@ -62,6 +80,26 @@ class PdfGenerator
     }
 
     /**
+     * Retrieve the generator we're using to convert our data to HTML.
+     *
+     * @return GeneratorInterface
+     */
+    public function getGenerator()
+    {
+        return $this->generator;
+    }
+
+    /**
+     * Retrieve the templating engine.
+     *
+     * @return EngineInterface
+     */
+    public function getTemplatingEngine()
+    {
+        return $this->templateEngine;
+    }
+
+    /**
      * Get the JSToHTML Converter.
      *
      * @return JSToHTML
@@ -72,13 +110,13 @@ class PdfGenerator
     }
 
     /**
-     * Retrieve the generator we're using to convert our data to HTML.
+     * Retrieve the name for this PDF file.
      *
-     * @return GeneratorInterface
+     * @return string
      */
-    public function getGenerator()
+    public function getName()
     {
-        return $this->generator;
+        return $this->filename;
     }
 
     /**
@@ -95,5 +133,39 @@ class PdfGenerator
         $html = $this->getJSToHTMLConverter()->convertToString($html);
 
         return $this->getGenerator()->getOutputFromHtml($html, $options);
+    }
+
+    /**
+     * From a given view and parameters, create the proper response so we can
+     * easily download the file.
+     *
+     * @param string $view
+     * @param array $parameters
+     * @return Response
+     */
+    public function downloadFromView($view, array $parameters = array())
+    {
+        $html = $this->getTemplatingEngine()->render($view, $parameters);
+
+        return new Response(
+            $this->getOutputFromHtml($html), 200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="' . $this->getName() . '"'
+            )
+        );
+    }
+
+    /**
+     * Set the name we'll use for the PDF file.
+     *
+     * @param string $name
+     * @return PdfGenerator
+     */
+    public function setName($name)
+    {
+        $this->filename = (string) $name;
+
+        return $this;
     }
 }
