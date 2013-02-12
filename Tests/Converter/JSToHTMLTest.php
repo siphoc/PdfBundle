@@ -1,17 +1,20 @@
 <?php
 
-namespace Siphoc\PdfBundle\Tests\Util;
+namespace Siphoc\PdfBundle\Tests\Converter;
 
-use Siphoc\PdfBundle\Util\CssToHTML;
+use Siphoc\PdfBundle\Converter\JSToHTML;
 
-class CssToHTMLTest extends \PHPUnit_Framework_TestCase
+class JSToHTMLTest extends \PHPUnit_Framework_TestCase
 {
     public function test_constructor_with_basic_data()
     {
         $requestHandler = $this->getRequestHandlerMock();
-        $converter = new CssToHTML($requestHandler);
+        $converter = new JSToHTML($requestHandler);
         $this->assertNull($converter->getBasePath());
-        $this->assertSame($requestHandler, $converter->getRequestHandler());
+        $this->assertSame(
+            $requestHandler,
+            $converter->getRequestHandler()
+        );
     }
 
     public function test_it_stores_web_path()
@@ -22,33 +25,36 @@ class CssToHTMLTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function test_it_extracts_external_stylesheets()
+    public function test_it_extracts_javascript_files()
     {
         $converter = $this->getConverter();
-        $htmlFile = $this->getFixturesPath() . '/stylesheet_test.html';
-
-        $htmlData = file_get_contents($htmlFile);
-        $externalStylesheets = $converter
-            ->extractExternalStylesheets($htmlData);
+        $htmlData = file_get_contents(
+            $this->getFixturesPath() . '/javascript_test.html'
+        );
+        $jsFiles = $converter->extractExternalJavaScript($htmlData);
 
         $this->assertEquals(
-            $this->getFixturesPath() . '/css/3809e64.css',
-            $externalStylesheets['links'][0]
+            '<script type="text/javascript" src="/js/foo.js"></script>',
+            $jsFiles['tags'][0]
         );
         $this->assertEquals(
-            'http://google.com/css/3809e64.css',
-            $externalStylesheets['links'][1]
+            $this->getFixturesPath() . '/js/foo.js',
+            $jsFiles['links'][0]
+        );
+        $this->assertEquals(
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js',
+            $jsFiles['links'][1]
         );
     }
 
-    public function test_it_inlines_external_stylesheets()
+    public function test_it_converts_files()
     {
         $converter = $this->getConverter();
-
-        $htmlFile = $this->getFixturesPath() . '/stylesheet_test.html';
-        $htmlData = file_get_contents($htmlFile);
+        $htmlData = file_get_contents(
+            $this->getFixturesPath() . '/javascript_test.html'
+        );
         $convertedData = file_get_contents(
-            $this->getFixturesPath() . '/converted_css_data.html'
+            $this->getFixturesPath() . '/converted_js_data.html'
         );
 
         $this->assertEquals(
@@ -64,7 +70,7 @@ class CssToHTMLTest extends \PHPUnit_Framework_TestCase
 
     private function getConverter()
     {
-        $converter = new CssToHTML($this->getRequestHandlerMock());
+        $converter = new JSToHTML($this->getRequestHandlerMock());
         $converter->setBasePath($this->getFixturesPath());
 
         return $converter;
@@ -83,7 +89,7 @@ class CssToHTMLTest extends \PHPUnit_Framework_TestCase
 
         $handler->expects($this->any())
             ->method('getContent')
-            ->will($this->returnValue("h2{ font-size: 15px; }"));
+            ->will($this->returnValue("$('jquery');\n"));
 
         return $handler;
     }

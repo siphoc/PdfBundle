@@ -7,7 +7,7 @@
  * @link        http://siphoc.com
  */
 
-namespace Siphoc\PdfBundle\Util;
+namespace Siphoc\PdfBundle\Converter;
 
 use Siphoc\PdfBundle\Util\RequestHandlerInterface;
 

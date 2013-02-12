@@ -1,8 +1,8 @@
 <?php
 
-namespace Siphoc\PdfBundle\Tests\Util;
+namespace Siphoc\PdfBundle\Tests\Generator;
 
-use Siphoc\PdfBundle\Util\PdfGenerator;
+use Siphoc\PdfBundle\Generator\PdfGenerator;
 
 class PDFGeneratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -51,7 +51,7 @@ class PDFGeneratorTest extends \PHPUnit_Framework_TestCase
 
     private function getJSToHTMLMock()
     {
-        $converter = $this->getMockBuilder('Siphoc\PdfBundle\Util\JSToHTML')
+        $converter = $this->getMockBuilder('Siphoc\PdfBundle\Converter\JSToHTML')
             ->disableOriginalConstructor()->getMock();
 
         $converter->expects($this->any())
@@ -63,7 +63,7 @@ class PDFGeneratorTest extends \PHPUnit_Framework_TestCase
 
     private function getCssToInlineMock()
     {
-        $converter = $this->getMockBuilder('Siphoc\PdfBundle\Util\CssToHTML')
+        $converter = $this->getMockBuilder('Siphoc\PdfBundle\Converter\CssToHTML')
             ->disableOriginalConstructor()->getMock();
 
         $converter->expects($this->any())

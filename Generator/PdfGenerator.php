@@ -7,11 +7,11 @@
  * @link        http://siphoc.com
  */
 
-namespace Siphoc\PdfBundle\Util;
+namespace Siphoc\PdfBundle\Generator;
 
 use Knp\Snappy\GeneratorInterface;
-use Siphoc\PdfBundle\Util\CssToHTML;
-use Siphoc\PdfBundle\Util\JSToHTML;
+use Siphoc\PdfBundle\Converter\CssToHTML;
+use Siphoc\PdfBundle\Converter\JSToHTML;
 
 /**
  * The actual PDF Generator that'll transform a view into a proper PDF.
