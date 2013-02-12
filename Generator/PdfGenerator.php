@@ -10,8 +10,7 @@
 namespace Siphoc\PdfBundle\Generator;
 
 use Knp\Snappy\GeneratorInterface;
-use Siphoc\PdfBundle\Converter\CssToHTML;
-use Siphoc\PdfBundle\Converter\JSToHTML;
+use Siphoc\PdfBundle\Converter\ConverterInterface;
 
 /**
  * The actual PDF Generator that'll transform a view into a proper PDF.
@@ -44,8 +43,8 @@ class PdfGenerator
      * @param JSToHTML $jsToHTML
      * @param GeneratorInterface $generator
      */
-    public function __construct(CssToHTML $cssToHTML, JSToHTML $jsToHTML,
-        GeneratorInterface $generator)
+    public function __construct(ConverterInterface $cssToHTML,
+        ConverterInterface $jsToHTML, GeneratorInterface $generator)
     {
         $this->cssToHTML = $cssToHTML;
         $this->jsToHTML = $jsToHTML;

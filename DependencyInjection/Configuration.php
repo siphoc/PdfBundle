@@ -32,6 +32,7 @@ class Configuration implements ConfigurationInterface
         $rootNode->children()
             ->scalarNode('binary')->defaultValue('wkhtmltopdf')->end()
             ->scalarNode('basepath')->isRequired()->end()
+            ->booleanNode('inline')->defaultFalse()->end()
             ->arrayNode('options')
                 ->performNoDeepMerging()
                 ->useAttributeAsKey('name')
