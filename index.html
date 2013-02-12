@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -16,18 +15,17 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1 class="header">Pdfbundle</h1>
-        <p class="header">Symfony2 PDF Bundle.</p>
+        <h1>Pdfbundle</h1>
+        <p>Symfony2 PDF Bundle.</p>
+
+        <p class="view"><a href="https://github.com/siphoc/PdfBundle">View the Project on GitHub <small>siphoc/PdfBundle</small></a></p>
+
 
         <ul>
-          <li class="download"><a class="buttons" href="https://github.com/siphoc/PdfBundle/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/siphoc/PdfBundle/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/siphoc/PdfBundle">View On GitHub</a></li>
+          <li><a href="https://github.com/siphoc/PdfBundle/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/siphoc/PdfBundle/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/siphoc/PdfBundle">View On <strong>GitHub</strong></a></li>
         </ul>
-
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/siphoc">siphoc</a></p>
-
-
       </header>
       <section>
         <h1>PDFBundle</h1>
@@ -89,27 +87,14 @@ public function registerBundles()
 
 <p>In your controller, you can download the contents of your controller like this:</p>
 
-<pre><code>$html = $this-&gt;renderView(
+<pre><code>$pdfGenerator = $this-&gt;get('siphoc.pdf.generator');
+$pdfGenerator-&gt;setName('my_pdf.pdf');
+return $pdfGenerator-&gt;downloadFromView(
     'AcmeDemoBundle:Demo:index.html.twig', array(
         'name' =&gt; $name,
     )
 );
-
-$pdfGenerator = $this-&gt;get('siphoc.pdf.generator');
-
-return new Response(
-    $pdfGenerator-&gt;getOutputFromHtml($html),
-    200,
-    array(
-        'Content-Type'          =&gt; 'application/pdf',
-        'Content-Disposition'   =&gt; 'attachment; filename="file.pdf"'
-    )
-);
 </code></pre>
-
-<p>In the future, I'll provide a way that you can skip the $this-&gt;renderView() and
-new Response() part. It'll create a response depending on your view and
-paramameters. For now, this is the way to go.</p>
 
 <h2>Documentation</h2>
 
@@ -121,6 +106,10 @@ to create proper MD files to include in Git.</p>
 <p>If you want to contribute, be sure to update the documentation and run both
 <a href="http://www.phpdoc.org/">PHPDocumentor2</a> and PHPDoc Markdown.
 This way the documentation keeps up to date properly.</p>
+
+<h2>Development</h2>
+
+<p>This bundle is mainly created and maintained for <a href="https://github.com/darwinanalytics/">Darwin Analytics</a>.</p>
 
 <h2>Tests</h2>
 
@@ -142,12 +131,27 @@ Bundle from <a href="https://github.com/kriswallsmith">@kriswallsmith</a>.</p>
 <p>To create the actual PDF. We're using <a href="https://github.com/knplabs/snappy">Snappy</a>.
 This has the <a href="http://code.google.com/p/wkhtmltopdf/">wkhtmltopdf</a> dependency. Be
 sure that you use the latest version (&gt;=0.11.0_rc1).</p>
+
+<h3>Symfony</h3>
+
+<p>Since this is a Symfony bundle, there are some Symfony dependencies.</p>
+
+<h4>Http Foundation</h4>
+
+<p>To create a proper response, I've implemented the Symfony 2.1 <a href="https://github.com/symfony/HttpFoundation">Http Foundation</a>
+component.</p>
+
+<h4>Templating</h4>
+
+<p>To render the views automatically, I've added the <a href="https://github.com/symfony/Templating">templating component</a>
+to force a proper templating engine.</p>
       </section>
       <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+        <p>This project is maintained by <a href="https://github.com/siphoc">siphoc</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
+    <script src="javascripts/scale.fix.js"></script>
+    
   </body>
 </html>
