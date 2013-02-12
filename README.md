@@ -94,6 +94,6 @@ Since this is a Symfony bundle, there are some Symfony dependencies.
 To create a proper response, I've implemented the Symfony 2.1 [Http Foundation](https://github.com/symfony/HttpFoundation)
 component.
 
-### Symfony - Templating
+#### Templating
 To render the views automatically, I've added the [templating component](https://github.com/symfony/Templating)
 to force a proper templating engine.
