@@ -47,7 +47,7 @@ class BuzzRequestHandler implements RequestHandlerInterface
      *
      * @param MessageInterface $request
      * @param MessageInterface $response
-     * @param ClientInterface $client
+     * @param ClientInterface  $client
      */
     public function __construct(MessageInterface $request,
         MessageInterface $response, ClientInterface $client)
@@ -70,7 +70,7 @@ class BuzzRequestHandler implements RequestHandlerInterface
     /**
      * Retrieve the contents from a given url.
      *
-     * @param string $url
+     * @param  string $url
      * @return string
      */
     public function getContent($url)

@@ -20,7 +20,7 @@ interface RequestHandlerInterface
     /**
      * Retrieve the contents from a given url.
      *
-     * @param string $url
+     * @param  string $url
      * @return string
      */
     public function getContent($url);

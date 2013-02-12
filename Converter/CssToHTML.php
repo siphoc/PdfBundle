@@ -46,7 +46,7 @@ class CssToHTML extends CssConverter
      * Convert a specified HTML string with CSS data to a HTML string with
      * inline CSS data in proper <style> blocks.
      *
-     * @param string $html
+     * @param  string $html
      * @return string
      */
     public function convertToString($html)
@@ -69,7 +69,7 @@ class CssToHTML extends CssConverter
      * it is a local stylesheet, prepend our basepath to the link so we can
      * properly fetch the data to insert.
      *
-     * @param array $stylesheets
+     * @param  array $stylesheets
      * @return array
      */
     public function createStylesheetPaths(array $stylesheets)
@@ -102,7 +102,7 @@ class CssToHTML extends CssConverter
     /**
      * Retrieve the contents from a CSS file.
      *
-     * @param string $path
+     * @param  string $path
      * @return string
      */
     private function getStylesheetContent($path)
@@ -124,7 +124,7 @@ class CssToHTML extends CssConverter
      * From a given CSS string, replace all the local url tags. This means
      * replacing all the url(x) tags.
      *
-     * @param string $css
+     * @param  string $css
      * @return string
      */
     private function replaceLocalUrlTags($css)
@@ -155,8 +155,8 @@ class CssToHTML extends CssConverter
      * From a set of external stylesheets, retrieve the data and replace the
      * matching CSS tag with the contents.
      *
-     * @param string $html
-     * @param array $stylesheets
+     * @param  string $html
+     * @param  array  $stylesheets
      * @return string
      */
     public function replaceExternalCss($html, array $stylesheets)
@@ -187,7 +187,7 @@ class CssToHTML extends CssConverter
     /**
      * Set the base path we'll use to fetch our css files from.
      *
-     * @param string $basePath      The base path where our css files are.
+     * @param  string    $basePath The base path where our css files are.
      * @return CssToHTML
      */
     public function setBasePath($basePath)

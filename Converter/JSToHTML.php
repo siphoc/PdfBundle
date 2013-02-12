@@ -47,7 +47,7 @@ class JSToHTML implements ConverterInterface
      * Extract all the linked JS files and put them in the proper place on the
      * given HTML string.
      *
-     * @param string $html
+     * @param  string $html
      * @return string
      */
     public function convertToString($html)
@@ -60,7 +60,7 @@ class JSToHTML implements ConverterInterface
     /**
      * Given a HTML string, find all the JS files that should be loaded.
      *
-     * @param string $html
+     * @param  string $html
      * @return array
      */
     public function extractExternalJavaScript($html)
@@ -100,7 +100,7 @@ class JSToHTML implements ConverterInterface
     /**
      * Set the base path we'll use to fetch our css files from.
      *
-     * @param string $basePath      The base path where our css files are.
+     * @param  string      $basePath The base path where our css files are.
      * @return CssToInline
      */
     public function setBasePath($basePath)
@@ -115,7 +115,7 @@ class JSToHTML implements ConverterInterface
      * it is a local file, prepend our basepath to the link so we can properly
      * fetch the data to insert.
      *
-     * @param array $javascripts
+     * @param  array $javascripts
      * @return array
      */
     private function createJavaScriptPaths(array $javascripts)
@@ -146,7 +146,7 @@ class JSToHTML implements ConverterInterface
     /**
      * Fetch the content of a JavaScript file from a given path.
      *
-     * @param string $path
+     * @param  string $path
      * @return string
      */
     private function getJavaScriptContent($path)
@@ -169,7 +169,7 @@ class JSToHTML implements ConverterInterface
      *
      * @TODO: Improve regex to contain bigger range of urls.
      *
-     * @param string $url
+     * @param  string  $url
      * @return boolean
      */
     private function isExternalJavaScriptFile($url)
@@ -185,8 +185,8 @@ class JSToHTML implements ConverterInterface
      * Replace the JavaScript tags that do external requests with inline
      * script blocks.
      *
-     * @param string $html
-     * @param array $javaScriptFiles
+     * @param  string $html
+     * @param  array  $javaScriptFiles
      * @return string
      */
     private function replaceJavaScriptTags($html, array $javaScriptFiles)

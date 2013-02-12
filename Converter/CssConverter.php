@@ -22,7 +22,7 @@ abstract class CssConverter implements ConverterInterface
      * enabled. If the stylesheet is not in the form of a url, prepend our
      * basePath.
      *
-     * @param string $html
+     * @param  string $html
      * @return array
      */
     public function extractExternalStylesheets($html)
@@ -53,7 +53,7 @@ abstract class CssConverter implements ConverterInterface
      *
      * @TODO: Improve regex to contain bigger range of urls.
      *
-     * @param string $url
+     * @param  string  $url
      * @return boolean
      */
     protected function isExternalStylesheet($url)

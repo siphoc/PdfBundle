@@ -55,6 +55,7 @@ class PdfGenerator
      * @param ConverterInterface $cssToHTML
      * @param ConverterInterface $jsToHTML
      * @param GeneratorInterface $generator
+     * @param EngineInterface    $templateEngine
      */
     public function __construct(ConverterInterface $cssToHTML,
         ConverterInterface $jsToHTML, GeneratorInterface $generator,
@@ -120,8 +121,8 @@ class PdfGenerator
      * Generate the PDF from a given HTML string. Replace all the CSS and JS
      * tags with inline blocks/code.
      *
-     * @param string $html
-     * @param array $options
+     * @param  string $html
+     * @param  array  $options
      * @return string
      */
     public function getOutputFromHtml($html, array $options = array())
@@ -136,8 +137,9 @@ class PdfGenerator
      * Retrieve the output from a Symfony view. This uses the selected
      * template engine and renders it trough that.
      *
-     * @param string $view
-     * @param array $parameters
+     * @param  string $view
+     * @param  array  $parameters
+     * @param  array  $options
      * @return string
      */
     public function getOutputFromView($view, array $parameters = array(),
@@ -152,9 +154,9 @@ class PdfGenerator
      * From a given view and parameters, create the proper response so we can
      * easily download the file.
      *
-     * @param string $view
-     * @param array $parameters
-     * @param array $options    Additional options for WKHTMLToPDF.
+     * @param  string   $view
+     * @param  array    $parameters
+     * @param  array    $options    Additional options for WKHTMLToPDF.
      * @return Response
      */
     public function downloadFromView($view, array $parameters = array(),
@@ -175,7 +177,7 @@ class PdfGenerator
     /**
      * Set the name we'll use for the PDF file.
      *
-     * @param string $name
+     * @param  string       $name
      * @return PdfGenerator
      */
     public function setName($name)

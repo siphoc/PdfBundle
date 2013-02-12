@@ -51,7 +51,7 @@ class CssPathToUrl extends CssConverter
      * Replace a given set of links with the proper url if it is an external
      * css file.
      *
-     * @param array $links
+     * @param  array $links
      * @return array
      */
     public function replaceCssPaths(array $links)
@@ -69,8 +69,8 @@ class CssPathToUrl extends CssConverter
      * From a set of external stylesheets, retrieve the data and replace the
      * matching CSS tag with the contents.
      *
-     * @param string $html
-     * @param array $stylesheets
+     * @param  string $html
+     * @param  array  $stylesheets
      * @return string
      */
     public function replaceExternalCss($html, array $stylesheets)
@@ -91,7 +91,7 @@ class CssPathToUrl extends CssConverter
     /**
      * Set the URL we'll use to point our CSS files to.
      *
-     * @param string $url
+     * @param  string       $url
      * @return CssPathToUrl
      */
     public function setUrl($url)

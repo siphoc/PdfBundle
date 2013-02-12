@@ -20,7 +20,7 @@ interface ConverterInterface
     /**
      * Convert a specified HTML string with proper implementation logic.
      *
-     * @param string $html
+     * @param  string $html
      * @return string
      */
     public function convertToString($html);
