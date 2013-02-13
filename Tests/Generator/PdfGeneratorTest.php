@@ -18,10 +18,10 @@ class PDFGeneratorTest extends \PHPUnit_Framework_TestCase
             $cssToInline, $jsToHTML, $snappy, $templateEngine
         );
         $this->assertSame(
-            $cssToInline, $generator->getCssToHTMLConverter()
+            $cssToInline, $generator->getCssConverter()
         );
         $this->assertSame(
-            $jsToHTML, $generator->getJSToHTMLConverter()
+            $jsToHTML, $generator->getJSConverter()
         );
         $this->assertSame(
             $snappy, $generator->getGenerator()

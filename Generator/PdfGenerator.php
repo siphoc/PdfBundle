@@ -127,8 +127,8 @@ class PdfGenerator
      */
     public function getOutputFromHtml($html, array $options = array())
     {
-        $html = $this->getCssToHTMLConverter()->convertToString($html);
-        $html = $this->getJSToHTMLConverter()->convertToString($html);
+        $html = $this->getCssConverter()->convertToString($html);
+        $html = $this->getJSConverter()->convertToString($html);
 
         return $this->getGenerator()->getOutputFromHtml($html, $options);
     }
