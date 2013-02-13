@@ -72,7 +72,7 @@ class PdfGenerator
      *
      * @return CssToHTML
      */
-    public function getCssToHTMLConverter()
+    public function getCssConverter()
     {
         return $this->cssToHTML;
     }
@@ -102,7 +102,7 @@ class PdfGenerator
      *
      * @return JSToHTML
      */
-    public function getJSToHTMLConverter()
+    public function getJSConverter()
     {
         return $this->jsToHTML;
     }
@@ -147,7 +147,7 @@ class PdfGenerator
     {
         $html = $this->getTemplatingEngine()->render($view, $parameters);
 
-        return $this->getGenerator()->getOutputFromHtml($html, $options);
+        return $this->getOutputFromHtml($html, $options);
     }
 
     /**
