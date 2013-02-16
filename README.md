@@ -97,3 +97,7 @@ component.
 #### Templating
 To render the views automatically, I've added the [templating component](https://github.com/symfony/Templating)
 to force a proper templating engine.
+
+#### HttpKernel
+Since version 1.1.2 we've implemented a logger instance. This depends on the
+Symfony2 [HttpKernel](https://github.com/symfony/HttpKernel) component.
