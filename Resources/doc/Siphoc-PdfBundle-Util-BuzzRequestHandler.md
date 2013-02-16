@@ -8,7 +8,7 @@ The handler that we&#039;ll use to get external files from other servers.
 
 * Class name: BuzzRequestHandler
 * Namespace: Siphoc\PdfBundle\Util
-* This class implements: [Siphoc\PdfBundle\Util\RequestHandlerInterface](Siphoc-PdfBundle-Util-RequestHandlerInterface)
+* This class implements: [Siphoc\PdfBundle\Util\RequestHandlerInterface](Siphoc-PdfBundle-Util-RequestHandlerInterface.md)
 
 
 

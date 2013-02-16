@@ -9,7 +9,7 @@ Given a HTML page, take the external JS files and put it in the HTML with
 
 * Class name: JSToHTML
 * Namespace: Siphoc\PdfBundle\Converter
-* This class implements: [Siphoc\PdfBundle\Converter\ConverterInterface](Siphoc-PdfBundle-Converter-ConverterInterface)
+* This class implements: [Siphoc\PdfBundle\Converter\ConverterInterface](Siphoc-PdfBundle-Converter-ConverterInterface.md)
 
 
 
@@ -62,7 +62,7 @@ Initiate the JSToHTML class with the request handler interface.
 
 #### Arguments
 
-* $handler **[Siphoc\PdfBundle\Util\RequestHandlerInterface](Siphoc-PdfBundle-Util-RequestHandlerInterface)**
+* $handler **[Siphoc\PdfBundle\Util\RequestHandlerInterface](Siphoc-PdfBundle-Util-RequestHandlerInterface.md)**
 
 
 

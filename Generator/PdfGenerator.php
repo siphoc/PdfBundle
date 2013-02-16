@@ -64,7 +64,7 @@ class PdfGenerator implements GeneratorInterface
      * @param ConverterInterface $jsToHTML
      * @param GeneratorInterface $generator
      * @param EngineInterface    $templateEngine
-     * @para LoggerInterface $logger
+     * @param LoggerInterface $logger
      */
     public function __construct(ConverterInterface $cssToHTML,
         ConverterInterface $jsToHTML, GeneratorInterface $generator,

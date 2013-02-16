@@ -10,7 +10,7 @@ basic functionality like our regexes.</p>
 * Class name: CssConverter
 * Namespace: Siphoc\PdfBundle\Converter
 * This is an **abstract** class
-* This class implements: [Siphoc\PdfBundle\Converter\ConverterInterface](Siphoc-PdfBundle-Converter-ConverterInterface)
+* This class implements: [Siphoc\PdfBundle\Converter\ConverterInterface](Siphoc-PdfBundle-Converter-ConverterInterface.md)
 
 
 
@@ -85,7 +85,7 @@ Convert a specified HTML string with proper implementation logic.
 
 
 * Visibility: **public**
-* This method is defined by [Siphoc\PdfBundle\Converter\ConverterInterface](Siphoc-PdfBundle-Converter-ConverterInterface)
+* This method is defined by [Siphoc\PdfBundle\Converter\ConverterInterface](Siphoc-PdfBundle-Converter-ConverterInterface.md)
 
 #### Arguments
 
