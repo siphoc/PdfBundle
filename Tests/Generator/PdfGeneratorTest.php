@@ -17,58 +17,34 @@ class PDFGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new PdfGenerator(
             $cssToInline, $jsToHTML, $snappy, $templateEngine
         );
-        $this->assertSame(
-            $cssToInline, $generator->getCssConverter()
-        );
-        $this->assertSame(
-            $jsToHTML, $generator->getJSConverter()
-        );
-        $this->assertSame(
-            $snappy, $generator->getGenerator()
-        );
-        $this->assertSame(
-            $templateEngine, $generator->getTemplatingEngine()
-        );
+
+        $this->assertSame($cssToInline, $generator->getCssConverter());
+        $this->assertSame($jsToHTML, $generator->getJSConverter());
+        $this->assertSame($snappy, $generator->getGenerator());
+        $this->assertSame($templateEngine, $generator->getTemplatingEngine());
     }
 
     public function test_it_stores_name()
     {
-        $cssToInline = $this->getCssToInlineMock();
-        $jsToHTML = $this->getJSToHTMLMock();
-        $snappy = $this->getSnappyMock();
-        $templateEngine = $this->getEngineMock();
-
-        $generator = new PdfGenerator(
-            $cssToInline, $jsToHTML, $snappy, $templateEngine
-        );
+        $generator = $this->getPdfGenerator();
         $generator->setName('download.pdf');
+
         $this->assertEquals('download.pdf', $generator->getName());
     }
 
     public function test_it_converts_html()
     {
-        $cssToInline = $this->getCssToInlineMock();
-        $jsToHTML = $this->getJSToHTMLMock();
-        $snappy = $this->getSnappyMock();
-        $templateEngine = $this->getEngineMock();
-
-        $generator = new PdfGenerator(
-            $cssToInline, $jsToHTML, $snappy, $templateEngine
+        $generator = $this->getPdfGenerator();
+        $output = $generator->getOutputFromHtml(
+            '<html><head></head><body></body></html>'
         );
-        $output = $generator->getOutputFromHtml('<html><head></head><body></body></html>');
+
         $this->assertEquals('PDFOutput', $output);
     }
 
     public function test_it_creates_response_for_download()
     {
-        $cssToInline = $this->getCssToInlineMock();
-        $jsToHTML = $this->getJSToHTMLMock();
-        $snappy = $this->getSnappyMock();
-        $templateEngine = $this->getEngineMock();
-
-        $generator = new PdfGenerator(
-            $cssToInline, $jsToHTML, $snappy, $templateEngine
-        );
+        $generator = $this->getPdfGenerator();
 
         $this->assertInstanceOf(
             'Symfony\Component\HttpFoundation\Response',
@@ -112,6 +88,20 @@ class PDFGeneratorTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($this->getHTML()));
 
         return $converter;
+    }
+
+    private function getPdfGenerator()
+    {
+        $cssToInline = $this->getCssToInlineMock();
+        $jsToHTML = $this->getJSToHTMLMock();
+        $snappy = $this->getSnappyMock();
+        $templateEngine = $this->getEngineMock();
+
+        $generator = new PdfGenerator(
+            $cssToInline, $jsToHTML, $snappy, $templateEngine
+        );
+
+        return $generator;
     }
 
     private function getEngineMock()
