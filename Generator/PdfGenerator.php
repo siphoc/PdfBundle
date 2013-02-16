@@ -20,7 +20,7 @@ use Symfony\Component\Templating\EngineInterface;
  *
  * @author Jelmer Snoeck <jelmer@siphoc.com>
  */
-class PdfGenerator
+class PdfGenerator implements GeneratorInterface
 {
     /**
      * The default filename we'll use for the downloadable file.
@@ -135,6 +135,61 @@ class PdfGenerator
     public function getName()
     {
         return $this->filename;
+    }
+
+    /**
+     * Generates the output media file from the specified input HTML file
+     *
+     * @param  string $input   The input HTML filename or URL
+     * @param  string $output  The output media filename
+     * @param  array  $options An array of options for this generation only
+     * @param  bool   $overwrite Overwrite the file if it exists. If not, throw an InvalidArgumentException
+     */
+    public function generate($input, $output, array $options = array(),
+        $overwrite = false)
+    {
+        $this->log(sprintf(
+            'Generate from file (%s) to file (%s)',
+            $input, $output
+        ));
+
+        return $this->getGenerator()->generate(
+            $input, $output, $options, $overwrite
+        );
+    }
+
+    /**
+     * Generates the output media file from the given HTML
+     *
+     * @param  string $html    The HTML to be converted
+     * @param  string $output  The output media filename
+     * @param  array  $options An array of options for this generation only
+     * @param  bool   $overwrite Overwrite the file if it exists. If not, throw an InvalidArgumentException
+     */
+    public function generateFromHtml($html, $output, array $options = array(),
+        $overwrite = false)
+    {
+        $this->log(sprintf('Generate output in file (%s) from html.', $output));
+
+        return $this->getGenerator()->generateFromHtml(
+            $html, $output, $options, $overwrite
+        );
+    }
+
+    /**
+     * Returns the output of the media generated from the specified input HTML
+     * file
+     *
+     * @param  string $input   The input HTML filename or URL
+     * @param  array  $options An array of options for this output only
+     *
+     * @return string
+     */
+    public function getOutput($input, array $options = array())
+    {
+        $this->log(sprintf('Getting output from file (%s)', $input));
+
+        return $this->getGenerator()->getOutput($input, $options);
     }
 
     /**

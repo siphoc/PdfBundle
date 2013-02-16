@@ -24,6 +24,57 @@ class PDFGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($templateEngine, $generator->getTemplatingEngine());
     }
 
+    public function test_it_generates_output()
+    {
+        $generator = $this->getPdfGenerator();
+        $generator->getGenerator()->expects($this->once())
+            ->method('generate')
+            ->with(
+                $this->equalTo('input_file'),
+                $this->equalTo('output_file'),
+                $this->equalTo(array('foo' => 'bar')),
+                $this->equalTo(true)
+            );
+
+        $generator->generate(
+            'input_file', 'output_file', array('foo' => 'bar'), true
+        );
+    }
+
+    public function test_it_generates_output_from_html()
+    {
+        $generator = $this->getPdfGenerator();
+        $generator->getGenerator()->expects($this->once())
+            ->method('generateFromHtml')
+            ->with(
+                $this->equalTo('html'),
+                $this->equalTo('output_file'),
+                $this->equalTo(array('foo' => 'bar')),
+                $this->equalTo(true)
+            );
+
+        $generator->generateFromHtml(
+            'html', 'output_file', array('foo' => 'bar'), true
+        );
+    }
+
+    public function test_it_generates_output_from_file()
+    {
+        $generator = $this->getPdfGenerator();
+        $generator->getGenerator()->expects($this->once())
+            ->method('getOutput')
+            ->with(
+                $this->equalTo('input_file'),
+                $this->equalTo(array('foo' => 'bar'))
+            )
+            ->will($this->returnValue('test_output'));
+
+        $this->assertEquals(
+            'test_output',
+            $generator->getOutput('input_file', array('foo' => 'bar'))
+        );
+    }
+
     public function test_it_stores_name()
     {
         $generator = $this->getPdfGenerator();
