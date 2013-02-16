@@ -18,7 +18,8 @@
         "kriswallsmith/buzz": "0.8",
         "knplabs/knp-snappy": "0.1.*",
         "symfony/http-foundation": "2.1.*",
-        "symfony/templating": "2.1.*"
+        "symfony/templating": "2.1.*",
+        "symfony/http-kernel": "2.1.*"
     },
     "autoload": {
         "psr-0": { "Siphoc\\PdfBundle": "" }

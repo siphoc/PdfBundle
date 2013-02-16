@@ -12,6 +12,7 @@ namespace Siphoc\PdfBundle\Generator;
 use Knp\Snappy\GeneratorInterface;
 use Siphoc\PdfBundle\Converter\ConverterInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\Templating\EngineInterface;
 
 /**
@@ -43,6 +44,13 @@ class PdfGenerator
     protected $jsToHTML;
 
     /**
+     * The logging instance used to log our messages to.
+     *
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * The template engine we'll use to process our views.
      *
      * @var EngineInterface
@@ -56,15 +64,17 @@ class PdfGenerator
      * @param ConverterInterface $jsToHTML
      * @param GeneratorInterface $generator
      * @param EngineInterface    $templateEngine
+     * @para LoggerInterface $logger
      */
     public function __construct(ConverterInterface $cssToHTML,
         ConverterInterface $jsToHTML, GeneratorInterface $generator,
-        EngineInterface $templateEngine)
+        EngineInterface $templateEngine, LoggerInterface $logger = null)
     {
         $this->cssToHTML = $cssToHTML;
         $this->jsToHTML = $jsToHTML;
         $this->generator = $generator;
         $this->templateEngine = $templateEngine;
+        $this->logger = $logger;
     }
 
     /**
@@ -108,6 +118,16 @@ class PdfGenerator
     }
 
     /**
+     * Retrieve the logging instance.
+     *
+     * @return LoggerInterface
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    /**
      * Retrieve the name for this PDF file.
      *
      * @return string
@@ -127,6 +147,8 @@ class PdfGenerator
      */
     public function getOutputFromHtml($html, array $options = array())
     {
+        $this->log('Get output from html.');
+
         $html = $this->getCssConverter()->convertToString($html);
         $html = $this->getJSConverter()->convertToString($html);
 
@@ -145,6 +167,8 @@ class PdfGenerator
     public function getOutputFromView($view, array $parameters = array(),
         array $options = array())
     {
+        $this->log(sprintf('Get converted output from view (%s).', $view));
+
         $html = $this->getTemplatingEngine()->render($view, $parameters);
 
         return $this->getOutputFromHtml($html, $options);
@@ -162,6 +186,8 @@ class PdfGenerator
     public function downloadFromView($view, array $parameters = array(),
         array $options = array())
     {
+        $this->log(sprintf('Download pdf from view (%s).', $view));
+
         $contentDisposition = 'attachment; filename="' . $this->getName() . '"';
 
         return new Response(
@@ -185,5 +211,19 @@ class PdfGenerator
         $this->filename = (string) $name;
 
         return $this;
+    }
+
+    /**
+     * Log a message to the logging system.
+     *
+     * @param string $message
+     */
+    public function log($message)
+    {
+        if (null === $this->getLogger()) {
+            return;
+        }
+
+        $this->getLogger()->debug($message);
     }
 }

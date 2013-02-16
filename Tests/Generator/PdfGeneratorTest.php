@@ -52,6 +52,26 @@ class PDFGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function test_it_logs_messages()
+    {
+        $cssToInline = $this->getCssToInlineMock();
+        $jsToHTML = $this->getJSToHTMLMock();
+        $snappy = $this->getSnappyMock();
+        $templateEngine = $this->getEngineMock();
+        $logger = $this->getMock('Symfony\Component\HttpKernel\Log\LoggerInterface');
+        $logger->expects($this->once())
+            ->method('debug')
+            ->with($this->equalTo('Get output from html.'));
+
+        $generator = new PdfGenerator(
+            $cssToInline, $jsToHTML, $snappy, $templateEngine, $logger
+        );
+
+        $this->assertSame($logger, $generator->getLogger());
+        // this will call our debug functionality as stated in the mock generator
+        $generator->getOutputFromHtml('<html></html>');
+    }
+
     private function getSnappyMock()
     {
         // we're not going to test the actual PDF convertion. That's a job for
