@@ -1,8 +1,11 @@
 # Upcoming
-## 1.1.3 / 2013-xx-xx
+## 1.1.4 / 2013-xx-xx
 * CSSToHTML: In the CSS converter, allow files to be prepended with "../"
 
 # Releases
+## 1.1.3 / 2013-02-21
+* CSSToHTML: if a local file does not exist, do not try to include the CSS.
+
 ## 1.1.2 / 2013-02-16
 * PDFGenerator: Add logging.
 * PDFGenerator: Implement Snappy PDF Generator interface.
