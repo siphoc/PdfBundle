@@ -112,6 +112,8 @@ class CssToHTML extends CssConverter
         } else {
             if (file_exists($path)) {
                 $cssData = file_get_contents($path);
+            } else {
+                return;
             }
         }
 

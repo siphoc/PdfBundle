@@ -63,6 +63,26 @@ class CssToHTMLTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function test_it_skips_unexisting_stylesheets()
+    {
+        $converter = $this->getConverter();
+
+        $htmlFile = $this->getFixturesPath() . '/faulty_css_file.html';
+        $htmlData = file_get_contents($htmlFile);
+        $convertedData = file_get_contents(
+            $this->getFixturesPath() . '/converted_faulty_css_data.html'
+        );
+        $convertedData = str_replace(
+            '{{ FixturesPath }}', $this->getFixturesPath(),
+            $convertedData
+        );
+
+        $this->assertEquals(
+            $convertedData,
+            $converter->convertToString($htmlData)
+        );
+    }
+
     private function getFixturesPath()
     {
         return __DIR__ . '/../Fixtures';
