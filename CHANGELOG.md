@@ -3,6 +3,9 @@
 * CSSToHTML: In the CSS converter, allow files to be prepended with "../"
 
 # Releases
+## 1.1.4 / 2013-02-25
+* JSToHTML: set stricter JS find regex.
+
 ## 1.1.3 / 2013-02-21
 * CSSToHTML: if a local file does not exist, do not try to include the CSS.
 
