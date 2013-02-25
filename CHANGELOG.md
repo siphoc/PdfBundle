@@ -1,5 +1,5 @@
 # Upcoming
-## 1.1.4 / 2013-xx-xx
+## 1.1.x / 2013-xx-xx
 * CSSToHTML: In the CSS converter, allow files to be prepended with "../"
 
 # Releases
