@@ -3,6 +3,9 @@
 * CSSToHTML: In the CSS converter, allow files to be prepended with "../"
 
 # Releases
+## 1.1.5 / 2013-02-28
+* JSToHTML: remove trailing characters from file path.
+
 ## 1.1.4 / 2013-02-25
 * JSToHTML: set stricter JS find regex.
 
