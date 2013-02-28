@@ -34,7 +34,7 @@ class JSToHTMLTest extends \PHPUnit_Framework_TestCase
         $jsFiles = $converter->extractExternalJavaScript($htmlData);
 
         $this->assertEquals(
-            '<script type="text/javascript" src="/js/foo.js"></script>',
+            '<script type="text/javascript" src="/js/foo.js?1"></script>',
             $jsFiles['tags'][0]
         );
         $this->assertEquals(

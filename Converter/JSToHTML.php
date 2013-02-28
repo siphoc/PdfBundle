@@ -124,7 +124,7 @@ class JSToHTML implements ConverterInterface
 
         foreach ($javascripts as $file) {
             if (!$this->isExternalJavaScriptFile($file)) {
-                $file = $this->getBasePath() . $file;
+                $file = $this->getBasePath() . strstr($file, '?', true);
             }
 
             $files[] = $file;
