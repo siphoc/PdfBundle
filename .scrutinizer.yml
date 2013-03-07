@@ -1,0 +1,7 @@
+inherit: true
+
+tools:
+    sensiolabs_security_checker: true
+    php_analyzer: true
+    php_code_coverage:
+        only_changesets: true
