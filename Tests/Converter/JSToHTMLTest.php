@@ -42,8 +42,16 @@ class JSToHTMLTest extends \PHPUnit_Framework_TestCase
             $jsFiles['links'][0]
         );
         $this->assertEquals(
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js',
+            '<script type="text/javascript" src="/js/foo.js"></script>',
+            $jsFiles['tags'][1]
+        );
+        $this->assertEquals(
+            $this->getFixturesPath() . '/js/foo.js',
             $jsFiles['links'][1]
+        );
+        $this->assertEquals(
+            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js',
+            $jsFiles['links'][2]
         );
     }
 
