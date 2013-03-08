@@ -10,7 +10,7 @@ Add SiphocPdfBundle to composer.
 
     {
         "require": {
-            "siphoc/pdf-bundle": "1.1.*"
+            "siphoc/pdf-bundle": "1.2.*"
         }
     }
 
