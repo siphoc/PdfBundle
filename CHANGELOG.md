@@ -3,6 +3,13 @@
 * CSSToHTML: In the CSS converter, allow files to be prepended with "../"
 
 # Releases
+## 1.2.1 / 2013-03-08
+* Core: lower Symfony dependencies.
+* JSToHTML: fix bug for files without "?" in the link.
+
+## 1.2.0 / 2013-03-02
+* Core: update Symfony dependencies.
+
 ## 1.1.5 / 2013-02-28
 * JSToHTML: remove trailing characters from file path.
 
