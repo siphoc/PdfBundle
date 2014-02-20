@@ -251,7 +251,7 @@ class PdfGenerator implements GeneratorInterface
     public function displayForView($view, array $parameters = array(),
         array $options = array())
     {
-        $this->log(sprintf('Download pdf from view (%s).', $view));
+        $this->log(sprintf('Display pdf for view (%s).', $view));
 
         $contentDisposition = 'inline; filename="' . $this->getName() . '"';
         return $this->generateResponse($view, $contentDisposition, $parameters,
