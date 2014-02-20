@@ -248,6 +248,15 @@ class PdfGenerator implements GeneratorInterface
             $options);
     }
 
+    /**
+     * From a given view and parameters, create the proper response so we can
+     * easily display the file inline.
+     *
+     * @param  string   $view
+     * @param  array    $parameters
+     * @param  array    $options    Additional options for WKHTMLToPDF.
+     * @return Response
+     */
     public function displayForView($view, array $parameters = array(),
         array $options = array())
     {
