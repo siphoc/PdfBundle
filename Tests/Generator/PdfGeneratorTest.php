@@ -103,6 +103,20 @@ class PDFGeneratorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function test_it_creates_response_for_display()
+    {
+        $generator = $this->getPdfGenerator();
+
+        $output = $generator->displayForView('AcmeDemoBundle:Foo:bar.html.twig');
+        $this->assertInstanceOf(
+            'Symfony\Component\HttpFoundation\Response', $output
+        );
+        $this->assertEquals(
+            'inline; filename="siphoc_pdfbundle.pdf"',
+            $output->headers->get('Content-Disposition')
+        );
+    }
+
     public function test_it_logs_messages()
     {
         $cssToInline = $this->getCssToInlineMock();
