@@ -47,6 +47,7 @@ In your config.yml file:
 
 ## Usage
 
+### Download
 In your controller, you can download the contents of your controller like this:
 
     $pdfGenerator = $this->get('siphoc.pdf.generator');
@@ -56,6 +57,19 @@ In your controller, you can download the contents of your controller like this:
             'name' => $name,
         )
     );
+
+### Inline display
+There's also an option to display the contents in the browser. To do so, use the
+following example:
+
+    $pdfGenerator = $this->get('siphoc.pdf.generator');
+    $pdfGenerator->setName('my_pdf.pdf');
+    return $pdfGenerator->displayForView(
+        'AcmeDemoBundle:Demo:index.html.twig', array(
+            'name' => $name,
+        )
+    );
+
 
 ## Documentation
 The main Documentation can be found in [Resources/doc/index.html](https://github.com/siphoc/PdfBundle/tree/master/Resources/doc). It is
