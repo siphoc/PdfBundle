@@ -244,15 +244,27 @@ class PdfGenerator implements GeneratorInterface
         $this->log(sprintf('Download pdf from view (%s).', $view));
 
         $contentDisposition = 'attachment; filename="' . $this->getName() . '"';
+        return $this->generateResponse($view, $contentDisposition, $parameters,
+            $options);
+    }
 
-        return new Response(
-            $this->getOutputFromView($view, $parameters, $options),
-            200,
-            array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => $contentDisposition,
-            )
-        );
+    /**
+     * From a given view and parameters, create the proper response so we can
+     * easily display the file inline.
+     *
+     * @param  string   $view
+     * @param  array    $parameters
+     * @param  array    $options    Additional options for WKHTMLToPDF.
+     * @return Response
+     */
+    public function displayForView($view, array $parameters = array(),
+        array $options = array())
+    {
+        $this->log(sprintf('Display pdf for view (%s).', $view));
+
+        $contentDisposition = 'inline; filename="' . $this->getName() . '"';
+        return $this->generateResponse($view, $contentDisposition, $parameters,
+            $options);
     }
 
     /**
@@ -280,5 +292,26 @@ class PdfGenerator implements GeneratorInterface
         }
 
         $this->getLogger()->debug($message);
+    }
+
+    /**
+     * Create a Response object for the inputted data.
+     *
+     * @param  string   $view
+     * @param  string   $contentDisposition
+     * @param  array    $parameters
+     * @param  array    $options    Additional options for WKHTMLToPDF.
+     */
+    private function generateResponse($view, $contentDisposition, $parameters,
+        $options)
+    {
+        return new Response(
+            $this->getOutputFromView($view, $parameters, $options),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => $contentDisposition,
+            )
+        );
     }
 }
