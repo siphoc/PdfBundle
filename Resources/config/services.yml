@@ -19,11 +19,11 @@ services:
 
     siphoc.buzz_request_handler:
         class: Siphoc\PdfBundle\Util\BuzzRequestHandler
-        arguments: [ @buzz.request, @buzz.response, @buzz.client ]
+        arguments: [ '@buzz.request', '@buzz.response', '@buzz.client' ]
 
     siphoc.pdf.css_to_html:
         class: Siphoc\PdfBundle\Converter\CssToHTML
-        arguments: [ @siphoc.buzz_request_handler ]
+        arguments: [ '@siphoc.buzz_request_handler' ]
         calls:
             - [ setBasePath, [ %siphoc_pdf.basepath% ] ]
 
@@ -32,6 +32,6 @@ services:
 
     siphoc.pdf.js_to_html:
         class: Siphoc\PdfBundle\Converter\JSToHTML
-        arguments: [ @siphoc.buzz_request_handler ]
+        arguments: [ '@siphoc.buzz_request_handler' ]
         calls:
             - [ setBasePath, [ %siphoc_pdf.basepath% ] ]
