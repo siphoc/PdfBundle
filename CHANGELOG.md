@@ -3,6 +3,9 @@
 * CSSToHTML: In the CSS converter, allow files to be prepended with "../"
 
 # Releases
+## 2.0.0 / 2016-01-22
+* Use \Psr\Log\LoggerInterface
+
 ## 1.2.1 / 2013-03-08
 * Core: lower Symfony dependencies.
 * JSToHTML: fix bug for files without "?" in the link.
