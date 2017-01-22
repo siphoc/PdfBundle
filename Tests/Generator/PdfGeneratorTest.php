@@ -123,7 +123,7 @@ class PDFGeneratorTest extends \PHPUnit_Framework_TestCase
         $jsToHTML = $this->getJSToHTMLMock();
         $snappy = $this->getSnappyMock();
         $templateEngine = $this->getEngineMock();
-        $logger = $this->getMock('Symfony\Component\HttpKernel\Log\LoggerInterface');
+        $logger = $this->getMock('\Psr\Log\LoggerInterface');
         $logger->expects($this->once())
             ->method('debug')
             ->with($this->equalTo('Get output from html.'));
